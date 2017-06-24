@@ -21,14 +21,12 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 	TextView tv;
 	Button btnStart, btnPause;
 	
-	String dbTableTitle, mytimers_txt[];
+	String dbTableTitle;
 
 	T_DBAdapter tdb;
 	
 	Context context;
-	
-	
-	SimpleCursorAdapter myCursor;
+
 	T_CustomAdapter customAdapter;
 	
 	@Override
@@ -36,7 +34,7 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.t_run);
 
-		context = getApplicationContext();
+		context = getBaseContext();
 		lv = (ListView) findViewById(R.id.T_ListView);
 		tv = (TextView) findViewById(R.id.T_TextView);
 		btnStart = (Button) findViewById(R.id.T_bStart);
@@ -61,9 +59,7 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 			}
 		});
 		
-		populatelist();
-		
-		//lv.setAdapter(customAdapter);
+		lv.setAdapter(customAdapter);
 		
 		
 		btnStart.setOnClickListener(new View.OnClickListener() {
@@ -159,20 +155,6 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
-	public void populatelist () {
-
-		tdb.open();
-
-		Cursor cursor = tdb.getAllTimers(dbTableTitle);
-		String[] fromFieldNames = new String[] {T_DBAdapter.KEY_NAME, T_DBAdapter.KEY_TIME};
-		int[] toViewIDs = new int[] {R.id.timer_singlerowNameTextView, R.id.timer_singlerowTimeTextView};
-
-		myCursor = new SimpleCursorAdapter(getBaseContext(), R.layout.t_singlerow, cursor, fromFieldNames, toViewIDs, 0);             
-		lv.setAdapter(myCursor);
-
-		tdb.close();
-	}
 		
 	public void onEditDialogMessage(int minutes, int seconds)
 	{
@@ -182,8 +164,6 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 		
 		tdb.updateTimer(dbTableTitle, id, name, secs);
 		tdb.close();
-
-		//populatelist();
 		
 		customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
@@ -198,8 +178,6 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 		String name = "";
 		tdb.insertTimer(dbTableTitle, name, secs);
 		tdb.close();
-
-		//populatelist();
 		
 		customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
