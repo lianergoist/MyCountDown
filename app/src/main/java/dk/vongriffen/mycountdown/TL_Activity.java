@@ -129,13 +129,13 @@ public class TL_Activity extends Activity implements NewDialogListener, EditDial
 		tldb.insertTimerList(title, desc);
 		tldb.close();
 		
-		populatelist();
-		
 		T_DBAdapter tdb = new T_DBAdapter(this);
 		tdb.open();
 		tdb.createTable(title);
 		tdb.close();
 
+		populatelist();
+		
 		Intent intent = new Intent(getApplicationContext(), T_Activity.class);
 		intent.putExtra("dbTableTitle", title);
 		startActivity(intent);

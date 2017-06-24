@@ -28,8 +28,15 @@ public class RunTimers
 	}
 
 	void begin() {
-		run(t[numTimer]*1000);
-		cdt.start();
+		if (numTimer < t.length) {
+			run(t[numTimer]*1000);
+			cdt.start();
+		} else {
+			tv.setText("done!");
+			mp.release();
+			mp = null;
+			numTimer = 0;
+		}
 	}
 
 	void stop(){
@@ -64,17 +71,10 @@ public class RunTimers
 			}
 
 			public void onFinish() {
-				if (numTimer < t.length) {
-					mp = MediaPlayer.create(c, R.raw.air);
-					mp.start();
-					numTimer++;
-					begin();
-				} else {
-					mp.release();
-					mp = null;
-					numTimer = 0;
-					tv.setText("done!");
-				}
+				mp = MediaPlayer.create(c, R.raw.air);
+				mp.start();
+				numTimer++;
+				begin();
 				
 			}
 		};
