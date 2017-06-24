@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyCountDown</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="app_name">00MyCountDown</string>
+    <string name="start">Start</string>
+	<string name="pause">Pause</string>
+	<string name="stop">Stop</string>
+	<string name="cont">Continue</string>
+	<string name="actionbar_add">Add</string>
+	<string name="create">Create</string>
+	<string name="update">Update</string>
+	<string name="cancel">Cancel</string>
+	<string name="ok">OK</string>
+	<string name="title">Title</string>
+	<string name="description">Description</string>
+	
 </resources>

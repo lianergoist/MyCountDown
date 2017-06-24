@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyCountDown</string>
+    <string name="start">Start</string>
+	<string name="pause">Pause</string>
+	<string name="stop">Stop</string>
+	<string name="cont">Forsæt</string>
+	<string name="actionbar_add">Tilføj</string>
+	<string name="create">Opret</string>
+	<string name="update">Opdater</string>
+	<string name="cancel">Fortryd"</string>
+	<string name="title">Titel</string>
+	<string name="description">Beskrivelse</string>
+	<string name="ok">OK</string>
+
+</resources>
