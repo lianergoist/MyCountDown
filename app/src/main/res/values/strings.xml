@@ -13,5 +13,7 @@
 	<string name="ok">OK</string>
 	<string name="title">Title</string>
 	<string name="description">Description</string>
-	
+	<string name="edit_dialog_title">Edit list</string>
+	<string name="new_dialog_title">New list</string>
+	<string name="add_dialog_title">Add timer</string>
 </resources>

@@ -13,5 +13,8 @@
 	<string name="title">Titel</string>
 	<string name="description">Beskrivelse</string>
 	<string name="ok">OK</string>
+	<string name="edit_dialog_title">Rediger liste</string>
+	<string name="new_dialog_title">Ny liste</string>
+	<string name="add_dialog_title">Tilføj timer</string>
 
 </resources>

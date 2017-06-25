@@ -123,6 +123,8 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 			case R.id.c_menu_edit:
 				FragmentManager manager = getFragmentManager();
 				T_Edit_DialogFragment t_edit_d = new T_Edit_DialogFragment();
+				String s = getResources().getString(R.string.edit_dialog_title);
+				t_edit_d.setDialogTitle(s);
 				t_edit_d.show(manager, "T_Edit");
 				id = customAdapter.getItemId(info.position);
 				return true;
@@ -148,6 +150,8 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 			case R.id.menu_add:
 				FragmentManager manager = getFragmentManager();
 				T_Add_DialogFragment t_add_d = new T_Add_DialogFragment();
+				String s = getResources().getString(R.string.add_dialog_title);
+				t_add_d.setDialogTitle(s);
 				t_add_d.show(manager, "T_Add");
 				return true;
 

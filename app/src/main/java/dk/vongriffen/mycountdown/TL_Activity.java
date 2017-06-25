@@ -74,6 +74,8 @@ public class TL_Activity extends Activity implements NewDialogListener, EditDial
 			case R.id.c_menu_edit:
 				FragmentManager manager = getFragmentManager();
 				TL_Edit_DialogFragment tl_edit_d = new TL_Edit_DialogFragment();
+				String s = getResources().getString(R.string.edit_dialog_title);
+				tl_edit_d.setDialogTitle(s);
 				tl_edit_d.show(manager, "TL_Edit");
 				id = myCursor.getItemId(info.position);
 				return true;
@@ -98,6 +100,8 @@ public class TL_Activity extends Activity implements NewDialogListener, EditDial
 			case R.id.menu_add:
 				FragmentManager manager = getFragmentManager();
 				TL_New_DialogFragment tl_new_d = new TL_New_DialogFragment();
+				String s = getResources().getString(R.string.new_dialog_title);
+				tl_new_d.setDialogTitle(s);
 				tl_new_d.show(manager, "TL_New");
 				return true;
 		
@@ -139,8 +143,6 @@ public class TL_Activity extends Activity implements NewDialogListener, EditDial
 		Intent intent = new Intent(getApplicationContext(), T_Activity.class);
 		intent.putExtra("dbTableTitle", title);
 		startActivity(intent);
-
-
 	}
 
 

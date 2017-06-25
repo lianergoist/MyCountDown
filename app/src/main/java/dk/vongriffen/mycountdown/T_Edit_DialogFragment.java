@@ -13,6 +13,7 @@ public class T_Edit_DialogFragment extends DialogFragment
 
 	NumberPicker npMinutes, npSeconds;
 	Button bCancel,bAddtimer;
+	static String dialogTitle;
 
 
 	public interface EditDialogListener {
@@ -23,6 +24,9 @@ public class T_Edit_DialogFragment extends DialogFragment
 	public T_Edit_DialogFragment () {
 	}
 
+	public void setDialogTitle(String title) {
+		dialogTitle = title;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
