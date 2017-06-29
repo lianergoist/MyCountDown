@@ -11,13 +11,14 @@ public class IR_Edit_DialogFragment extends DialogFragment
 	static final int MIN_VAL = 0;
 	static final int MAX_VAL = 59;
 
+	EditText etName;
 	NumberPicker npMinutes, npSeconds;
 	Button bCancel,bAddtimer;
 	static String dialogTitle;
 
 
-	public interface EditDialogListener {
-		public void onEditDialogMessage(int minutes, int seconds);
+	public interface IR_EditDialogListener {
+		public void IR_onEditDialogMessage(String name, int minutes, int seconds);
 
 	}
 
@@ -32,15 +33,16 @@ public class IR_Edit_DialogFragment extends DialogFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(
-			R.layout.t_add_dialog, null);
+			R.layout.ir_add_dialog, null);
 			
 		setCancelable(false);
 			
-		npMinutes = (NumberPicker) view.findViewById(R.id.npMinutes);
-		npSeconds = (NumberPicker) view.findViewById(R.id.npSeconds);
+		etName = (EditText) view.findViewById(R.id.IR_etDescription);
+		npMinutes = (NumberPicker) view.findViewById(R.id.IR_npMinutes);
+		npSeconds = (NumberPicker) view.findViewById(R.id.IR_npSeconds);
 
-		bCancel = (Button) view.findViewById(R.id.addtimertolistCancelButton);
-		bAddtimer =(Button) view.findViewById(R.id.addtimertolistAddButton);
+		bCancel = (Button) view.findViewById(R.id.IR_addtimertolistCancelButton);
+		bAddtimer =(Button) view.findViewById(R.id.IR_addtimertolistAddButton);
 		
 		npMinutes.setMinValue(MIN_VAL);
 		npMinutes.setMaxValue(MAX_VAL);
@@ -55,8 +57,8 @@ public class IR_Edit_DialogFragment extends DialogFragment
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					EditDialogListener activity = (EditDialogListener) getActivity();
-					activity.onEditDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					IR_EditDialogListener activity = (IR_EditDialogListener) getActivity();
+					activity.IR_onEditDialogMessage(etName.getText().toString(), npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});
@@ -67,6 +69,8 @@ public class IR_Edit_DialogFragment extends DialogFragment
 					dismiss();
 				}
 			});
+			
+		getDialog().setTitle(dialogTitle);
 			
 		return view;
 	}

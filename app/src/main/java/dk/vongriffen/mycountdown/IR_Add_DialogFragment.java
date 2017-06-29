@@ -11,13 +11,14 @@ public class IR_Add_DialogFragment extends DialogFragment
 	static final int MIN_VAL = 0;
 	static final int MAX_VAL = 59;
 
+	EditText etName;
 	NumberPicker npMinutes, npSeconds;
 	Button bCancel,bAddtimer;
 	static String dialogTitle;
 
 
-	public interface AddDialogListener {
-		public void onAddDialogMessage(int minutes, int seconds);
+	public interface IR_AddDialogListener {
+		public void IR_onAddDialogMessage(String name, int minutes, int seconds);
 	}
 
 	public IR_Add_DialogFragment () {
@@ -31,15 +32,15 @@ public class IR_Add_DialogFragment extends DialogFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.t_add_dialog, null);
+		View view = inflater.inflate(R.layout.ir_add_dialog, null);
 
 		setCancelable(false);
+		etName = (EditText) view.findViewById(R.id.IR_etDescription);
+		npMinutes = (NumberPicker) view.findViewById(R.id.IR_npMinutes);
+		npSeconds = (NumberPicker) view.findViewById(R.id.IR_npSeconds);
 
-		npMinutes = (NumberPicker) view.findViewById(R.id.npMinutes);
-		npSeconds = (NumberPicker) view.findViewById(R.id.npSeconds);
-
-		bCancel = (Button) view.findViewById(R.id.addtimertolistCancelButton);
-		bAddtimer =(Button) view.findViewById(R.id.addtimertolistAddButton);
+		bCancel = (Button) view.findViewById(R.id.IR_addtimertolistCancelButton);
+		bAddtimer =(Button) view.findViewById(R.id.IR_addtimertolistAddButton);
 
 		npMinutes.setMinValue(MIN_VAL);
 		npMinutes.setMaxValue(MAX_VAL);
@@ -54,8 +55,8 @@ public class IR_Add_DialogFragment extends DialogFragment
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					AddDialogListener activity = (AddDialogListener) getActivity();
-					activity.onAddDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					IR_AddDialogListener activity = (IR_AddDialogListener) getActivity();
+					activity.IR_onAddDialogMessage(etName.getText().toString(), npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});
@@ -66,6 +67,8 @@ public class IR_Add_DialogFragment extends DialogFragment
 					dismiss();
 				}
 			});
+			
+		getDialog().setTitle(dialogTitle);
 
 		return view;
 	}

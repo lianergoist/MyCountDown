@@ -6,7 +6,7 @@ import android.view.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.*;
 
-public class T_Add_DialogFragment extends DialogFragment
+public class TL_Edit_DialogFragment extends DialogFragment
 {
 	static final int MIN_VAL = 0;
 	static final int MAX_VAL = 59;
@@ -16,16 +16,15 @@ public class T_Add_DialogFragment extends DialogFragment
 	static String dialogTitle;
 
 
-	public interface T_AddDialogListener {
-		public void T_onAddDialogMessage(int minutes, int seconds);
+	public interface TL_EditDialogListener {
+		public void TL_onEditDialogMessage(int minutes, int seconds);
 
 	}
 
-	public T_Add_DialogFragment () {
+	public TL_Edit_DialogFragment () {
 	}
 
 	public void setDialogTitle(String title) {
-
 		dialogTitle = title;
 	}
 
@@ -33,15 +32,15 @@ public class T_Add_DialogFragment extends DialogFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(
-			R.layout.t_add_dialog, null);
+			R.layout.tl_add_dialog, null);
 
 		setCancelable(false);
 
-		npMinutes = (NumberPicker) view.findViewById(R.id.npMinutes);
-		npSeconds = (NumberPicker) view.findViewById(R.id.npSeconds);
+		npMinutes = (NumberPicker) view.findViewById(R.id.TL_npMinutes);
+		npSeconds = (NumberPicker) view.findViewById(R.id.TL_npSeconds);
 
-		bCancel = (Button) view.findViewById(R.id.addtimertolistCancelButton);
-		bAddtimer =(Button) view.findViewById(R.id.addtimertolistAddButton);
+		bCancel = (Button) view.findViewById(R.id.TL_addtimertolistCancelButton);
+		bAddtimer =(Button) view.findViewById(R.id.TL_addtimertolistAddButton);
 
 		npMinutes.setMinValue(MIN_VAL);
 		npMinutes.setMaxValue(MAX_VAL);
@@ -56,8 +55,8 @@ public class T_Add_DialogFragment extends DialogFragment
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					T_AddDialogListener activity = (T_AddDialogListener) getActivity();
-					activity.T_onAddDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					TL_EditDialogListener activity = (TL_EditDialogListener) getActivity();
+					activity.TL_onEditDialogMessage(npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});
@@ -68,9 +67,9 @@ public class T_Add_DialogFragment extends DialogFragment
 					dismiss();
 				}
 			});
+			
+		getDialog().setTitle(dialogTitle);
 
 		return view;
 	}
-
-
 }

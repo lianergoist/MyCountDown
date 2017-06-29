@@ -5,6 +5,13 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
 
+	<EditText
+		android:id="@+id/IR_etDescription"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:hint="@string/description"
+		android:layout_margin="10dp"/>
+
 	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -13,12 +20,12 @@
 		android:layout_weight="1.0">
 
 		<NumberPicker
-			android:id="@+id/npMinutes"
+			android:id="@+id/IR_npMinutes"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"/>
 
 		<NumberPicker
-			android:id="@+id/npSeconds"
+			android:id="@+id/IR_npSeconds"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"/>
 
@@ -34,14 +41,14 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
-			android:id="@+id/addtimertolistCancelButton"
+			android:id="@+id/IR_addtimertolistCancelButton"
 			android:text="@string/cancel"/>
 
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
-			android:id="@+id/addtimertolistAddButton"
+			android:id="@+id/IR_addtimertolistAddButton"
 			android:text="@string/ok"/>
 
 	</LinearLayout>

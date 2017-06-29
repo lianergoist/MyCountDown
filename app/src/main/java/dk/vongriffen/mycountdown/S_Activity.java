@@ -1,14 +1,16 @@
 package dk.vongriffen.mycountdown;
 
-import dk.vongriffen.mycountdown.IR_Add_DialogFragment.*;
+import dk.vongriffen.mycountdown.TL_Add_DialogFragment.*;
 import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+import android.content.res.*;
+import android.graphics.*;
 
-public class S_Activity extends Activity implements AddDialogListener
+public class S_Activity extends Activity implements TL_AddDialogListener
 {
 	TextView tv;
 	Integer time[]={0};
@@ -23,6 +25,10 @@ public class S_Activity extends Activity implements AddDialogListener
 		Context context = getBaseContext();
 		
 		tv = (TextView) findViewById(R.id.S_TextView);
+		
+		AssetManager assetmanager = getAssets();
+		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
+		tv.setTypeface(customfont);
 		
 		final RunTimers rt = new RunTimers(context, tv, time);
 		
@@ -49,8 +55,8 @@ public class S_Activity extends Activity implements AddDialogListener
 				public boolean onLongClick(View p1)
 				{
 					FragmentManager manager = getFragmentManager();
-					IR_Add_DialogFragment t_add_d = new IR_Add_DialogFragment();
-					String s = getResources().getString(R.string.edit_dialog_title);
+					TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
+					String s = getResources().getString(R.string.t_add_dialog_title);
 					t_add_d.setDialogTitle(s);
 					t_add_d.show(manager, "T_Add");
 					
@@ -104,7 +110,7 @@ public class S_Activity extends Activity implements AddDialogListener
 	}
 
 
-	public void onAddDialogMessage(int minutes, int seconds)
+	public void TL_onAddDialogMessage(int minutes, int seconds)
 	{
 		time[0] = minutes*60+seconds;
 		tv.setText(String.format("%02d:%02d", minutes, seconds));

@@ -73,10 +73,10 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 				
 			case R.id.c_menu_edit:
 				FragmentManager manager = getFragmentManager();
-				IL_Edit_DialogFragment tl_edit_d = new IL_Edit_DialogFragment();
-				String s = getResources().getString(R.string.edit_dialog_title);
-				tl_edit_d.setDialogTitle(s);
-				tl_edit_d.show(manager, "TL_Edit");
+				IL_Edit_DialogFragment il_edit_d = new IL_Edit_DialogFragment();
+				String s = getResources().getString(R.string.il_edit_dialog_title);
+				il_edit_d.setDialogTitle(s);
+				il_edit_d.show(manager, "IL_Edit");
 				id = myCursor.getItemId(info.position);
 				return true;
 				
@@ -101,10 +101,10 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 		switch (item.getItemId()) {
 			case R.id.a_menu_add:
 				FragmentManager manager = getFragmentManager();
-				IL_Add_DialogFragment tl_new_d = new IL_Add_DialogFragment();
-				String s = getResources().getString(R.string.new_dialog_title);
-				tl_new_d.setDialogTitle(s);
-				tl_new_d.show(manager, "TL_New");
+				IL_Add_DialogFragment il_add_d = new IL_Add_DialogFragment();
+				String s = getResources().getString(R.string.il_add_dialog_title);
+				il_add_d.setDialogTitle(s);
+				il_add_d.show(manager, "IL_Add");
 				return true;
 				
 			case R.id.a_menu_mode_simple:

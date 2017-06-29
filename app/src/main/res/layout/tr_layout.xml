@@ -16,7 +16,8 @@
 			android:layout_width="wrap_content"
 			android:text="00:00"
 			android:id="@+id/TR_TextView"
-			android:textSize="48sp"/>
+			android:textSize="144sp"
+			android:typeface="monospace"/>
 
 	</LinearLayout>
 

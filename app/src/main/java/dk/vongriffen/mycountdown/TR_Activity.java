@@ -2,12 +2,11 @@ package dk.vongriffen.mycountdown;
 
 import android.app.*;
 import android.content.*;
-import android.database.*;
+import android.content.res.*;
+import android.graphics.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
-import java.util.*;
 
 public class TR_Activity extends Activity
 {
@@ -33,6 +32,10 @@ public class TR_Activity extends Activity
 		btnStart = (Button) findViewById(R.id.TR_bStart);
 		btnPause = (Button) findViewById(R.id.TR_bPause);
 
+		AssetManager assetmanager = getAssets();
+		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
+		tv.setTypeface(customfont);
+		
 		tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
 		
 		final RunTimers rt = new RunTimers(context, tv, secs);
@@ -88,14 +91,14 @@ public class TR_Activity extends Activity
 
 		switch (item.getItemId()) {
 
-			case R.id.a_menu_add:
+//			case R.id.a_menu_add:
 //				FragmentManager manager = getFragmentManager();
-//				TR_Add_DialogFragment t_add_d = new TR_Add_DialogFragment();
-//				String s = getResources().getString(R.string.add_dialog_title);
+//				TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
+//				String s = getResources().getString(R.string.t_add_dialog_title);
 //				t_add_d.setDialogTitle(s);
-//				t_add_d.show(manager, "T_Add");
-				return true;
-
+//				t_add_d.show(manager, "TR_Add");
+//				return true;
+//
 			case R.id.a_menu_mode_simple:
 				intent = new Intent(getApplicationContext(), S_Activity.class);
 				startActivity(intent);

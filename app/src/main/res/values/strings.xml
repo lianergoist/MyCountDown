@@ -18,9 +18,11 @@
 	<string name="ok">OK</string>
 	<string name="title">Title</string>
 	<string name="description">Description</string>
-	<string name="edit_dialog_title">Edit list title and/or description</string>
-	<string name="new_dialog_title">New list</string>
-	<string name="add_dialog_title">Add timer</string>
+	<string name="il_edit_dialog_title">Edit list title and/or description</string>
+	<string name="il_add_dialog_title">New list</string>
+	<string name="ir_add_dialog_title">New timer</string>
+	<string name="t_edit_dialog_title">Edit timer</string>
+	<string name="t_add_dialog_title">Add timer</string>
 	<string name="alreadyInSimpleMode">You are already in Simple mode!</string>
 	<string name="alreadyInTimersMode">You are already in Timers mode!</string>
 	<string name="alreadyInIntervalsMode">You are already in Intervals mode!</string>

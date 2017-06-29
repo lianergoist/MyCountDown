@@ -2,16 +2,16 @@ package dk.vongriffen.mycountdown;
 
 import android.app.*;
 import android.content.*;
-import android.database.*;
+import android.content.res.*;
+import android.graphics.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import dk.vongriffen.mycountdown.IR_Add_DialogFragment.*;
 import dk.vongriffen.mycountdown.IR_Edit_DialogFragment.*;
-import java.util.*;
 
-public class IR_Activity extends Activity implements EditDialogListener, AddDialogListener
+public class IR_Activity extends Activity implements IR_EditDialogListener, IR_AddDialogListener
 {
 	boolean running = false;
 	boolean pause = false;
@@ -40,6 +40,10 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 		btnStart = (Button) findViewById(R.id.IR_bStart);
 		btnPause = (Button) findViewById(R.id.IR_bPause);
 		
+		AssetManager assetmanager = getAssets();
+		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
+		tv.setTypeface(customfont);
+		
 		dbTableTitle = getIntent().getStringExtra("dbTableTitle");
 
 		irdb = new IR_DBAdapter(this); 
@@ -55,7 +59,7 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				Toast.makeText(getApplicationContext(), ""+pos, Toast.LENGTH_LONG).show(); 
+				//Toast.makeText(getApplicationContext(), ""+pos, Toast.LENGTH_LONG).show(); 
 			}
 		});
 		
@@ -122,10 +126,10 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 
 			case R.id.c_menu_edit:
 				FragmentManager manager = getFragmentManager();
-				T_Edit_DialogFragment t_edit_d = new T_Edit_DialogFragment();
-				String s = getResources().getString(R.string.edit_dialog_title);
+				IR_Edit_DialogFragment t_edit_d = new IR_Edit_DialogFragment();
+				String s = getResources().getString(R.string.t_edit_dialog_title);
 				t_edit_d.setDialogTitle(s);
-				t_edit_d.show(manager, "T_Edit");
+				t_edit_d.show(manager, "IR_Edit");
 				id = customAdapter.getItemId(info.position);
 				return true;
 
@@ -139,7 +143,7 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.a_menu,menu);
-		menu.findItem(R.id.a_menu_mode_intervals).setVisible(true);
+		menu.findItem(R.id.a_menu_mode_intervals).setChecked(true);
 		return true;
 	}
 
@@ -153,7 +157,7 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 			case R.id.a_menu_add:
 				FragmentManager manager = getFragmentManager();
 				IR_Add_DialogFragment t_add_d = new IR_Add_DialogFragment();
-				String s = getResources().getString(R.string.add_dialog_title);
+				String s = getResources().getString(R.string.ir_add_dialog_title);
 				t_add_d.setDialogTitle(s);
 				t_add_d.show(manager, "T_Add");
 				return true;
@@ -179,12 +183,11 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 		}
 	}
 		
-	public void onEditDialogMessage(int minutes, int seconds)
+	public void IR_onEditDialogMessage(String name, int minutes, int seconds)
 	{
 		irdb.open();
 		int secs = minutes * 60 + seconds;
-		String name = "";
-		
+
 		irdb.updateTimer(dbTableTitle, id, name, secs);
 		irdb.close();
 		
@@ -194,11 +197,10 @@ public class IR_Activity extends Activity implements EditDialogListener, AddDial
 	
 
 	
-	public void onAddDialogMessage(int minutes, int seconds)
+	public void IR_onAddDialogMessage(String name, int minutes, int seconds)
 	{
 		irdb.open();
 		int secs = minutes * 60 + seconds;
-		String name = "";
 		irdb.insertTimer(dbTableTitle, name, secs);
 		irdb.close();
 		

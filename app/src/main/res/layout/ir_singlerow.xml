@@ -3,24 +3,21 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:orientation="horizontal">
+	android:orientation="horizontal"
+	android:padding="10dp">
 
 	<TextView
 		android:id="@+id/ir_singlerowNameTextView"
 		android:layout_height="wrap_content"
 		android:layout_width="0dp"
 		android:layout_weight="1"
-		android:text="Text"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:padding="10dp"/>
+		android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 	<TextView
 		android:id="@+id/ir_singlerowTimeTextView"
 		android:layout_height="wrap_content"
 		android:layout_width="100dp"
-		android:text="Text"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:padding="10dp"/>
+		android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 </LinearLayout>
 
