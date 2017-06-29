@@ -9,27 +9,15 @@ import android.util.*;
 public class TL_DBAdapter
 {
     static final String KEY_ROWID = "_id";
-    static final String KEY_TITLE = "title";
-    static final String KEY_DESC = "description";
+    static final String KEY_TIME = "time";
 
     static final int COL_ROWID = 0;
-    static final int COL_TITLE = 1;
-    static final int COL_DESC = 2;
+    static final int COL_TIME = 1;
 
-    static final String TAG = "TimerListDBAdapter";
-
-//********************************************
-	static final String DATABASE_NAME = "DB1";
-//********************************************
-	
-	static final String DATABASE_TABLE = "timerlists";
+    static final String TAG = "TL_DBAdapter";
+    static final String DATABASE_NAME = "TL";
+	static final String DATABASE_TABLE = "timers_list";
     static final int DATABASE_VERSION = 1;
-
-    static final String DATABASE_CREATE =
-            "create table " + DATABASE_TABLE + " ("
-                    + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_TITLE + " text not null, "
-                    + KEY_DESC + " text);";
 
     final Context context;
 
@@ -45,7 +33,7 @@ public class TL_DBAdapter
     public TL_DBAdapter open()
     {
         db = TL_DBHelper.getWritableDatabase();
-		return this;
+        return this;
     }
 
     public void close()
@@ -54,48 +42,44 @@ public class TL_DBAdapter
         TL_DBHelper.close();
     }
 
-    public long insertTimerList(String title, String desc)
+    public long insertTimer(int secs)
     {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TITLE, title);
-        initialValues.put(KEY_DESC, desc);
-		return db.insert(DATABASE_TABLE, null, initialValues);
+        initialValues.put(KEY_TIME, secs);
+        return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    public boolean deleteTimerList(long rowId)
+    public boolean deleteTimer(long rowId)
     {
-		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+        return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
-    public Cursor getAllTimerLists()
+    public Cursor getAllTimers()
     {
-		return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-								KEY_DESC}, null, null, null, null, null);
+        return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TIME}, null, null, null, null, null);
     }
 
-    public Cursor getTimerList(long rowId)
+    public Cursor getTimer(long rowId)
     {
-		Cursor c = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                        KEY_TITLE, KEY_DESC}, KEY_ROWID + "=" + rowId,
-                        null, null, null, null, null);
+        Cursor c = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TIME}, KEY_ROWID 
+								+ "=" + rowId, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
         return c;
     }
 
-    public boolean updateTimerList(long rowId, String title, String desc)
+    public boolean updateTimer(long rowId, int secs)
     {
         ContentValues args = new ContentValues();
-        args.put(KEY_TITLE, title);
-        args.put(KEY_DESC, desc);
-		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
-	}
+        args.put(KEY_TIME, secs);
+        return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper
     {
-        DatabaseHelper(Context context)
+		DatabaseHelper(Context context)
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -103,24 +87,24 @@ public class TL_DBAdapter
         @Override
         public void onCreate(SQLiteDatabase db)
         {
-            try {
-                db.execSQL(DATABASE_CREATE);
-                Log.w(TAG, "create ok");
+			String table_create = "create table " + DATABASE_TABLE + " ("
+				+ KEY_ROWID + " integer primary key autoincrement, "
+				+ KEY_TIME + " integer);";
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+			db.execSQL(table_create);
+			Log.i(TAG, DATABASE_NAME + " created successfully");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
-            //   Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+            //Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
             //           + newVersion + ", which will destroy all old data");
 
-            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
-            onCreate(db);
-        }
+
+			//TODO Handle upgrade
+
+		}
     }
 }
 

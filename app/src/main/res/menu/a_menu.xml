@@ -1,7 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item 
-		android:id="@+id/menu_add"
+		android:id="@+id/a_menu_add"
 		android:icon="@android:drawable/ic_menu_add"
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/actionbar_add" />
+	
+	<item
+		android:id="@+id/a_memu_mode"
+		android:icon="@android:drawable/ic_menu_more"
+		android:showAsAction="ifRoom"
+		android:title="@string/a_menu_mode">
+		
+			<group
+				android:id="@+id/a_menu_mode_group"
+				android:checkableBehavior="single" >
+				<item
+					android:id="@+id/a_menu_mode_simple"
+					android:checked="true"
+					android:title="@string/a_menu_mode_simple"/>
+				<item
+					android:id="@+id/a_menu_mode_timers"
+					android:title="@string/a_menu_mode_timers"/>
+				
+				<item
+					android:id="@+id/a_menu_mode_intervals"
+					android:title="@string/a_menu_mode_intervals"/>
+
+			</group>
+		<item 
+			android:id="@+id/a_menu_help"
+			android:icon="@android:drawable/ic_menu_help"
+			android:title="@string/a_menu_help" />
+	</item>
 </menu>

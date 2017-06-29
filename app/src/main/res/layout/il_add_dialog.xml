@@ -11,13 +11,13 @@
 		android:orientation="vertical">
 
 		<EditText
-			android:id="@+id/TL_New_etTitle"
+			android:id="@+id/IL_Add_etTitle"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:hint="@string/title"/>
 
 		<EditText
-			android:id="@+id/TL_New_etDescription"
+			android:id="@+id/IL_Add_etDescription"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:hint="@string/description"/>
@@ -31,14 +31,14 @@
 		android:gravity="center">
 
 		<Button
-			android:id="@+id/TL_New_bCancel"
+			android:id="@+id/IL_Add_bCancel"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:layout_margin="20dp"
 			android:text="@string/cancel"/>
 
 		<Button
-			android:id="@+id/TL_New_bCreate"
+			android:id="@+id/IL_Add_bCreate"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="@string/create"

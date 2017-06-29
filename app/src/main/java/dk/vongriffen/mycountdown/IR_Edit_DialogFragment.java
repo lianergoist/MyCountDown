@@ -1,12 +1,12 @@
 package dk.vongriffen.mycountdown;
-
+  
 import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.*;
 
-public class T_Add_DialogFragment extends DialogFragment
+public class IR_Edit_DialogFragment extends DialogFragment
 {
 	static final int MIN_VAL = 0;
 	static final int MAX_VAL = 59;
@@ -16,16 +16,15 @@ public class T_Add_DialogFragment extends DialogFragment
 	static String dialogTitle;
 
 
-	public interface T_AddDialogListener {
-		public void T_onAddDialogMessage(int minutes, int seconds);
+	public interface EditDialogListener {
+		public void onEditDialogMessage(int minutes, int seconds);
 
 	}
 
-	public T_Add_DialogFragment () {
+	public IR_Edit_DialogFragment () {
 	}
 
 	public void setDialogTitle(String title) {
-
 		dialogTitle = title;
 	}
 
@@ -34,15 +33,15 @@ public class T_Add_DialogFragment extends DialogFragment
 	{
 		View view = inflater.inflate(
 			R.layout.t_add_dialog, null);
-
+			
 		setCancelable(false);
-
+			
 		npMinutes = (NumberPicker) view.findViewById(R.id.npMinutes);
 		npSeconds = (NumberPicker) view.findViewById(R.id.npSeconds);
 
 		bCancel = (Button) view.findViewById(R.id.addtimertolistCancelButton);
 		bAddtimer =(Button) view.findViewById(R.id.addtimertolistAddButton);
-
+		
 		npMinutes.setMinValue(MIN_VAL);
 		npMinutes.setMaxValue(MAX_VAL);
 		npMinutes.setWrapSelectorWheel(true);
@@ -52,23 +51,23 @@ public class T_Add_DialogFragment extends DialogFragment
 		npSeconds.setMaxValue(MAX_VAL);
 		npSeconds.setWrapSelectorWheel(true);
 		npSeconds.setValue(0);
-
+		
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					T_AddDialogListener activity = (T_AddDialogListener) getActivity();
-					activity.T_onAddDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					EditDialogListener activity = (EditDialogListener) getActivity();
+					activity.onEditDialogMessage(npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});
-
+			
 		bCancel.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
 					dismiss();
 				}
 			});
-
+			
 		return view;
 	}
 

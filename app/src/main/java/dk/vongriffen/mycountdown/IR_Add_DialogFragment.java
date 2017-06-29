@@ -6,7 +6,7 @@ import android.view.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.*;
 
-public class T_Add_DialogFragment extends DialogFragment
+public class IR_Add_DialogFragment extends DialogFragment
 {
 	static final int MIN_VAL = 0;
 	static final int MAX_VAL = 59;
@@ -16,14 +16,13 @@ public class T_Add_DialogFragment extends DialogFragment
 	static String dialogTitle;
 
 
-	public interface T_AddDialogListener {
-		public void T_onAddDialogMessage(int minutes, int seconds);
-
+	public interface AddDialogListener {
+		public void onAddDialogMessage(int minutes, int seconds);
 	}
 
-	public T_Add_DialogFragment () {
+	public IR_Add_DialogFragment () {
 	}
-
+	
 	public void setDialogTitle(String title) {
 
 		dialogTitle = title;
@@ -32,8 +31,7 @@ public class T_Add_DialogFragment extends DialogFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(
-			R.layout.t_add_dialog, null);
+		View view = inflater.inflate(R.layout.t_add_dialog, null);
 
 		setCancelable(false);
 
@@ -56,8 +54,8 @@ public class T_Add_DialogFragment extends DialogFragment
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					T_AddDialogListener activity = (T_AddDialogListener) getActivity();
-					activity.T_onAddDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					AddDialogListener activity = (AddDialogListener) getActivity();
+					activity.onAddDialogMessage(npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});
@@ -71,6 +69,4 @@ public class T_Add_DialogFragment extends DialogFragment
 
 		return view;
 	}
-
-
 }

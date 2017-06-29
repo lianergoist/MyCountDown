@@ -1,5 +1,5 @@
 package dk.vongriffen.mycountdown;
 
-public class TT_Activity
+public class IL_Fragment
 {
 }

@@ -2,18 +2,27 @@
 <resources>
 
     <string name="app_name">00MyCountDown</string>
+	<string name="actionbar_add">Add</string>
+	<string name="a_menu_mode">Mode</string>
+	<string name="a_menu_help">Help</string>
+	<string name="a_menu_mode_simple">Simple</string>
+	<string name="a_menu_mode_timers">Timers</string>
+	<string name="a_menu_mode_intervals">Intervals</string>
     <string name="start">Start</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stop</string>
 	<string name="cont">Continue</string>
-	<string name="actionbar_add">Add</string>
 	<string name="create">Create</string>
 	<string name="update">Update</string>
 	<string name="cancel">Cancel</string>
 	<string name="ok">OK</string>
 	<string name="title">Title</string>
 	<string name="description">Description</string>
-	<string name="edit_dialog_title">Edit list</string>
+	<string name="edit_dialog_title">Edit list title and/or description</string>
 	<string name="new_dialog_title">New list</string>
 	<string name="add_dialog_title">Add timer</string>
+	<string name="alreadyInSimpleMode">You are already in Simple mode!</string>
+	<string name="alreadyInTimersMode">You are already in Timers mode!</string>
+	<string name="alreadyInIntervalsMode">You are already in Intervals mode!</string>
+	
 </resources>

@@ -1,5 +1,5 @@
 package dk.vongriffen.mycountdown;
 
-public class TT_DBAdapter
+public class IR_Fragment
 {
 }

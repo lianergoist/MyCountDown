@@ -7,13 +7,13 @@ import android.widget.*;
 import dk.vongriffen.mycountdown.*;
 import java.util.*;
 
-class T_CustomAdapter extends BaseAdapter
+class IR_CustomAdapter extends BaseAdapter
 {
 	ArrayList<SingleRow> list;
 	Context context;
 	Integer mytimers[];
 
-	T_CustomAdapter (Context c, T_DBAdapter db, String dbTableTitle) {
+	IR_CustomAdapter (Context c, IR_DBAdapter db, String dbTableTitle) {
 		context = c;
 		list = new ArrayList<SingleRow>();
 
@@ -60,9 +60,9 @@ class T_CustomAdapter extends BaseAdapter
 	public View getView(int i, View view, ViewGroup viewgroup)
 	{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View row = inflater.inflate(R.layout.t_singlerow, viewgroup, false);
-		TextView name = (TextView) row.findViewById(R.id.timer_singlerowNameTextView);
-		TextView secs = (TextView) row.findViewById(R.id.timer_singlerowTimeTextView);
+		View row = inflater.inflate(R.layout.ir_singlerow, viewgroup, false);
+		TextView name = (TextView) row.findViewById(R.id.ir_singlerowNameTextView);
+		TextView secs = (TextView) row.findViewById(R.id.ir_singlerowTimeTextView);
 
 		name.setText(list.get(i).name);
 		secs.setText(list.get(i).time);

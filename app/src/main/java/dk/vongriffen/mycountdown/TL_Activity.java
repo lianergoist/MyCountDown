@@ -1,7 +1,7 @@
 package dk.vongriffen.mycountdown;
 
-import dk.vongriffen.mycountdown.TL_New_DialogFragment.NewDialogListener;
-import dk.vongriffen.mycountdown.TL_Edit_DialogFragment.EditDialogListener;
+import dk.vongriffen.mycountdown.T_Add_DialogFragment.T_AddDialogListener;
+import dk.vongriffen.mycountdown.T_Edit_DialogFragment.T_EditDialogListener;
 import android.app.*;
 import android.content.*;
 import android.database.*;
@@ -11,43 +11,62 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 
 
-public class TL_Activity extends Activity implements NewDialogListener, EditDialogListener
+public class TL_Activity extends Activity implements T_EditDialogListener, T_AddDialogListener
 {
 	long id;
 	
+	Context context;
+
 	ListView lvTimer;
 	Button bCreateNewTL;
-	
+
 	TL_DBAdapter tldb;
-	//ListAdapter la;
-	SimpleCursorAdapter myCursor;
 	
+	TL_CustomAdapter adapter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tl_list);
 		
+		context = getBaseContext();
+
 		tldb = new TL_DBAdapter(this);
 		
+		adapter = new TL_CustomAdapter(context, tldb);
+
 		lvTimer = (ListView) findViewById(R.id.TL_ListView);
+		
+		lvTimer.setAdapter(adapter);
 
 		registerForContextMenu(lvTimer);
-		
-		lvTimer.setOnCreateContextMenuListener(this);
-	
-		lvTimer.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				TextView tv = (TextView) view.findViewById(R.id.timerlist_singlerowTitleTextView);
-				String title = tv.getText().toString();
-				Intent intent = new Intent(getApplicationContext(), T_Activity.class);
-				intent.putExtra("dbTableTitle", title);
-				startActivity(intent);
-			}
-		});
 
-		populatelist();
+		lvTimer.setOnCreateContextMenuListener(this);
+
+		lvTimer.setOnCreateContextMenuListener(this);
+
+		lvTimer.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+					Toast.makeText(getApplicationContext(), ""+pos, Toast.LENGTH_LONG).show(); 
+				}
+			});
+
+		
+		lvTimer.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+					//TextView tv = (TextView) view.findViewById(R.id.tl_singlerowTitleTextView);
+					int secs = adapter.getSeconds(pos);
+					Intent intent = new Intent(getApplicationContext(), TR_Activity.class);
+					intent.putExtra("seconds", secs);
+					startActivity(intent);
+				}
+			});
+			
+		
+		
 	}
 
 	@Override
@@ -60,101 +79,115 @@ public class TL_Activity extends Activity implements NewDialogListener, EditDial
 	public boolean onContextItemSelected(MenuItem item)
 	{
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		
+
 		switch (item.getItemId()){
-			
+
 			case R.id.c_menu_delete:
-				id = myCursor.getItemId(info.position);
+				id = adapter.getItemId(info.position);
 				tldb.open();
-				tldb.deleteTimerList(id);
+				tldb.deleteTimer(id);
 				tldb.close();
-				populatelist();
-				return true;
 				
+				adapter = new TL_CustomAdapter(context, tldb);
+				lvTimer.setAdapter(adapter);
+				
+				return true;
+
 			case R.id.c_menu_edit:
 				FragmentManager manager = getFragmentManager();
-				TL_Edit_DialogFragment tl_edit_d = new TL_Edit_DialogFragment();
-				String s = getResources().getString(R.string.edit_dialog_title);
-				tl_edit_d.setDialogTitle(s);
+				T_Edit_DialogFragment tl_edit_d = new T_Edit_DialogFragment();
+				//String s = getResources().getString(R.string.edit_dialog_title);
+				tl_edit_d.setDialogTitle("");
 				tl_edit_d.show(manager, "TL_Edit");
-				id = myCursor.getItemId(info.position);
+				id = adapter.getItemId(info.position);
 				return true;
-				
+
 			default:
 				return super.onContextItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.a_menu, menu);
+		menu.findItem(R.id.a_menu_mode_timers).setChecked(true);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Intent intent;
+
 		switch (item.getItemId()) {
-			
-			case R.id.menu_add:
+			case R.id.a_menu_add:
 				FragmentManager manager = getFragmentManager();
-				TL_New_DialogFragment tl_new_d = new TL_New_DialogFragment();
-				String s = getResources().getString(R.string.new_dialog_title);
-				tl_new_d.setDialogTitle(s);
-				tl_new_d.show(manager, "TL_New");
+				T_Add_DialogFragment t_add_d = new T_Add_DialogFragment();
+				//String s = getResources().getString(R.string.add_dialog_title);
+				t_add_d.setDialogTitle("");
+				t_add_d.show(manager, "T_Add");
 				return true;
-		
+
+			case R.id.a_menu_mode_simple:
+				intent = new Intent(getApplicationContext(), S_Activity.class);
+				startActivity(intent);
+				return true;
+
+			case R.id.a_menu_mode_timers:
+				Toast.makeText(this, "@string/alreadyInTimersMode", Toast.LENGTH_LONG).show();
+				return true;
+
+			case R.id.a_menu_mode_intervals:
+				intent = new Intent(getApplicationContext(), IL_Activity.class);
+				startActivity(intent);
+				return true;
+
+			case R.id.a_menu_help:
+				return true;
+
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	} 
-
-	public void populatelist () {
-
-		tldb.open();
-
-		Cursor cursor = tldb.getAllTimerLists();
-		String[] fromFieldNames = new String[] {TL_DBAdapter.KEY_TITLE, TL_DBAdapter.KEY_DESC};
-		int[] toViewIDs = new int[] {R.id.timerlist_singlerowTitleTextView, R.id.timerlist_singlerowDescTextView};
-		
-		myCursor = new SimpleCursorAdapter(getBaseContext(), R.layout.tl_singlerow, cursor, fromFieldNames, toViewIDs, 0);
-		lvTimer= (ListView) findViewById(R.id.TL_ListView);
-		lvTimer.setAdapter(myCursor);
-
-		tldb.close();
 	}
 
+	public void OnGroupItemClick (MenuItem item){
+		if (item.isChecked()) {
+			item.setChecked(false);
+		}
+		else {
+			item.setChecked(true);
+		}
+	}
 
 	@Override
-	public void onNewDialogMessage(String title, String desc)
+	public void T_onAddDialogMessage(int minutes, int seconds)
 	{
+		
 		tldb.open();
-		tldb.insertTimerList(title, desc);
+		tldb.insertTimer(minutes*60+seconds);
 		tldb.close();
 		
-		T_DBAdapter tdb = new T_DBAdapter(this);
-		tdb.open();
-		tdb.createTable(title);
-		tdb.close();
-
-		populatelist();
+		adapter = new TL_CustomAdapter(context, tldb);
+		lvTimer.setAdapter(adapter);
 		
-		Intent intent = new Intent(getApplicationContext(), T_Activity.class);
-		intent.putExtra("dbTableTitle", title);
+		Intent intent = new Intent(getApplicationContext(), TR_Activity.class);
+		intent.putExtra("seconds", minutes*60+seconds);
 		startActivity(intent);
 	}
 
 
 	@Override
-	public void onEditDialogMessage(String title, String desc)
+	public void T_onEditDialogMessage(int minutes, int seconds)
 	{
 		tldb.open();
-		tldb.updateTimerList(id, title, desc);
+		int secs = minutes * 60 + seconds;
+
+		tldb.updateTimer(id, secs);
 		tldb.close();
 
-		populatelist();
-
+		adapter = new TL_CustomAdapter(context, tldb);
+		lvTimer.setAdapter(adapter);
 	}
 
 

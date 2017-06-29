@@ -6,7 +6,7 @@
 	android:orientation="horizontal">
 
 	<TextView
-		android:id="@+id/timer_singlerowNameTextView"
+		android:id="@+id/ir_singlerowNameTextView"
 		android:layout_height="wrap_content"
 		android:layout_width="0dp"
 		android:layout_weight="1"
@@ -15,7 +15,7 @@
 		android:padding="10dp"/>
 
 	<TextView
-		android:id="@+id/timer_singlerowTimeTextView"
+		android:id="@+id/ir_singlerowTimeTextView"
 		android:layout_height="wrap_content"
 		android:layout_width="100dp"
 		android:text="Text"

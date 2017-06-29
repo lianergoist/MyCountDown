@@ -9,20 +9,27 @@
         android:theme="@style/AppTheme"
 		android:resizeableActivity = "true">
         <activity
-            android:name=".TL_Activity"
+            android:name=".S_Activity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 		<activity
-			android:name=".T_Add_Activity"
+			android:name=".TL_Activity"
 			android:label="@string/app_name">
 		</activity>
 		<activity
-			android:name=".T_Activity"
+			android:name=".TR_Activity"
+			android:label="@string/app_name">
+		</activity>	
+		<activity
+			android:name=".IL_Activity"
+			android:label="@string/app_name">
+		</activity>
+		<activity
+			android:name=".IR_Activity"
 			android:label="@string/app_name">
 		</activity>	
     </application>

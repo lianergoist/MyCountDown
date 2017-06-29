@@ -7,11 +7,18 @@
 	android:padding="10dp">
 
 	<TextView
-		android:id="@+id/tl_singlerowTitleTextView"
+		android:id="@+id/il_singlerowTitleTextView"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:text="Text"
 		android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+	<TextView
+		android:id="@+id/il_singlerowDescTextView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Small Text"/>
 
 </LinearLayout>
 

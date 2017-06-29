@@ -2,19 +2,27 @@
 <resources>
 
     <string name="app_name">MyCountDown</string>
+	<string name="actionbar_add">Tilføj</string>
+	<string name="a_menu_mode">Tilstand</string>
+	<string name="a_menu_help">Hjælp</string>
+	<string name="a_menu_mode_simple">Simpel</string>
+	<string name="a_menu_mode_timers">Liste</string>
+	<string name="a_menu_mode_intervals">Interval</string>
     <string name="start">Start</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stop</string>
 	<string name="cont">Forsæt</string>
-	<string name="actionbar_add">Tilføj</string>
 	<string name="create">Opret</string>
 	<string name="update">Opdater</string>
 	<string name="cancel">Fortryd"</string>
 	<string name="title">Titel</string>
 	<string name="description">Beskrivelse</string>
 	<string name="ok">OK</string>
-	<string name="edit_dialog_title">Rediger liste</string>
-	<string name="new_dialog_title">Ny liste</string>
+	<string name="edit_dialog_title">Rediger titel og/eller beskrivelse</string>
+	<string name="new_dialog_title">Nyt interval</string>
 	<string name="add_dialog_title">Tilføj timer</string>
+	<string name="alreadyInSimpleMode">Du er allerede i Simpel mode!</string>
+	<string name="alreadyInTimersMode">Du er allerede i Timers mode!</string>
+	<string name="alreadyInIntervalsMode">Du er allerede i Interval mode!</string>
 
 </resources>

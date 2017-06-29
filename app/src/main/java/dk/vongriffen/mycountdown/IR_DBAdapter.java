@@ -6,7 +6,7 @@ import android.database.sqlite.*;
 import android.widget.*;
 import android.util.*;
 
-public class T_DBAdapter
+public class IR_DBAdapter
 {
     static final String KEY_ROWID = "_id";
     static final String KEY_NAME = "name";
@@ -16,35 +16,31 @@ public class T_DBAdapter
     static final int COL_NAME = 1;
     static final int COL_TIME = 2;
 
-    static final String TAG = "TimerDBAdapter";
-
-    //********************************************
-    static final String DATABASE_NAME = "TIMERS";
-	//********************************************
-
+    static final String TAG = "IR_DBAdapter";
+    static final String DATABASE_NAME = "IR";
     static final int DATABASE_VERSION = 1;
 
     final Context context;
 
-    DatabaseHelper T_DBHelper;
+    DatabaseHelper IR_DBHelper;
     SQLiteDatabase db;
 
-    public T_DBAdapter(Context ctx)
+    public IR_DBAdapter(Context ctx)
     {
         this.context = ctx;
-        T_DBHelper = new DatabaseHelper(context);
+        IR_DBHelper = new DatabaseHelper(context);
     }
 
-    public T_DBAdapter open()
+    public IR_DBAdapter open()
     {
-        db = T_DBHelper.getWritableDatabase();
+        db = IR_DBHelper.getWritableDatabase();
         return this;
     }
 
     public void close()
     {
 
-        T_DBHelper.close();
+        IR_DBHelper.close();
     }
 
     public long insertTimer(String table, String name, int secs)

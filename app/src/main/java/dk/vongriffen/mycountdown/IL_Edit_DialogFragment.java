@@ -6,18 +6,18 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 
-public class TL_Edit_DialogFragment extends DialogFragment
+public class IL_Edit_DialogFragment extends DialogFragment
 {
 	EditText etTitle, etDescription;
 	Button bCancel, bCreate;
 	static String dialogTitle;
 
-	public interface EditDialogListener {
+	public interface IL_EditDialogListener {
 		public void onEditDialogMessage(String title, String desc);
 
 	}
 
-	public TL_Edit_DialogFragment () {
+	public IL_Edit_DialogFragment () {
 		//empty
 	}
 
@@ -30,19 +30,19 @@ public class TL_Edit_DialogFragment extends DialogFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view =inflater.inflate (R.layout.tl_new_dialog, container);
+		View view =inflater.inflate (R.layout.il_add_dialog, container);
 
 		setCancelable(false);
 
-		etTitle=(EditText) view.findViewById(R.id.TL_New_etTitle);
-		etDescription = (EditText) view.findViewById(R.id.TL_New_etDescription);
-		bCreate = (Button) view.findViewById(R.id.TL_New_bCreate);
-		bCancel = (Button) view.findViewById(R.id.TL_New_bCancel);
+		etTitle=(EditText) view.findViewById(R.id.IL_Add_etTitle);
+		etDescription = (EditText) view.findViewById(R.id.IL_Add_etDescription);
+		bCreate = (Button) view.findViewById(R.id.IL_Add_bCreate);
+		bCancel = (Button) view.findViewById(R.id.IL_Add_bCancel);
 		bCreate.setText(R.string.update);
 		bCreate.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				EditDialogListener activity = (EditDialogListener) getActivity();
+				IL_EditDialogListener activity = (IL_EditDialogListener) getActivity();
 				activity.onEditDialogMessage(etTitle.getText().toString(), etDescription.getText().toString());
 				dismiss();
 			}

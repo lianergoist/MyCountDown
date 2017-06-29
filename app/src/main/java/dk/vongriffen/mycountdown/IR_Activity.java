@@ -7,11 +7,11 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import dk.vongriffen.mycountdown.T_Add_DialogFragment.*;
-import dk.vongriffen.mycountdown.T_Edit_DialogFragment.*;
+import dk.vongriffen.mycountdown.IR_Add_DialogFragment.*;
+import dk.vongriffen.mycountdown.IR_Edit_DialogFragment.*;
 import java.util.*;
 
-public class T_Activity extends Activity implements EditDialogListener, AddDialogListener
+public class IR_Activity extends Activity implements EditDialogListener, AddDialogListener
 {
 	boolean running = false;
 	boolean pause = false;
@@ -23,28 +23,28 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 	
 	String dbTableTitle;
 
-	T_DBAdapter tdb;
+	IR_DBAdapter irdb;
 	
 	Context context;
 
-	T_CustomAdapter customAdapter;
+	IR_CustomAdapter customAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.t_run);
+		setContentView(R.layout.ir_layout);
 
 		context = getBaseContext();
-		lv = (ListView) findViewById(R.id.T_ListView);
-		tv = (TextView) findViewById(R.id.T_TextView);
-		btnStart = (Button) findViewById(R.id.T_bStart);
-		btnPause = (Button) findViewById(R.id.T_bPause);
+		lv = (ListView) findViewById(R.id.IR_ListView);
+		tv = (TextView) findViewById(R.id.IR_TextView);
+		btnStart = (Button) findViewById(R.id.IR_bStart);
+		btnPause = (Button) findViewById(R.id.IR_bPause);
 		
 		dbTableTitle = getIntent().getStringExtra("dbTableTitle");
 
-		tdb = new T_DBAdapter(this); 
+		irdb = new IR_DBAdapter(this); 
 		
-		customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
+		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		
 		final RunTimers rt = new RunTimers(context, tv, customAdapter.getTimers());
 		
@@ -113,10 +113,10 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 		
 			case R.id.c_menu_delete:
 				id = customAdapter.getItemId(info.position);
-				tdb.open();
-				tdb.deleteTimer(dbTableTitle,id);
-				tdb.close();
-				customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
+				irdb.open();
+				irdb.deleteTimer(dbTableTitle,id);
+				irdb.close();
+				customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 				lv.setAdapter(customAdapter);
 				return true;
 
@@ -139,22 +139,41 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.a_menu,menu);
+		menu.findItem(R.id.a_menu_mode_intervals).setVisible(true);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Intent intent;
+		
 		switch (item.getItemId()) {
 
-			case R.id.menu_add:
+			case R.id.a_menu_add:
 				FragmentManager manager = getFragmentManager();
-				T_Add_DialogFragment t_add_d = new T_Add_DialogFragment();
+				IR_Add_DialogFragment t_add_d = new IR_Add_DialogFragment();
 				String s = getResources().getString(R.string.add_dialog_title);
 				t_add_d.setDialogTitle(s);
 				t_add_d.show(manager, "T_Add");
 				return true;
+				
+			case R.id.a_menu_mode_simple:
+				intent = new Intent(getApplicationContext(), S_Activity.class);
+				startActivity(intent);
+				return true;
 
+			case R.id.a_menu_mode_timers:
+				intent = new Intent(getApplicationContext(), TL_Activity.class);
+				startActivity(intent);
+				return true;
+
+			case R.id.a_menu_mode_intervals:
+				item.setChecked(true);
+				intent = new Intent(getApplicationContext(), IL_Activity.class);
+				startActivity(intent);
+				return true;
+				
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -162,14 +181,14 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 		
 	public void onEditDialogMessage(int minutes, int seconds)
 	{
-		tdb.open();
+		irdb.open();
 		int secs = minutes * 60 + seconds;
 		String name = "";
 		
-		tdb.updateTimer(dbTableTitle, id, name, secs);
-		tdb.close();
+		irdb.updateTimer(dbTableTitle, id, name, secs);
+		irdb.close();
 		
-		customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
+		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
 	}
 	
@@ -177,13 +196,13 @@ public class T_Activity extends Activity implements EditDialogListener, AddDialo
 	
 	public void onAddDialogMessage(int minutes, int seconds)
 	{
-		tdb.open();
+		irdb.open();
 		int secs = minutes * 60 + seconds;
 		String name = "";
-		tdb.insertTimer(dbTableTitle, name, secs);
-		tdb.close();
+		irdb.insertTimer(dbTableTitle, name, secs);
+		irdb.close();
 		
-		customAdapter = new T_CustomAdapter(context, tdb, dbTableTitle);
+		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
 	}
 }

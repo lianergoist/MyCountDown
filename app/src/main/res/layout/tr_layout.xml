@@ -5,23 +5,17 @@
 	android:layout_width="match_parent"
 	android:orientation="vertical">
 
-	<ListView
-		android:id="@+id/T_ListView"
-		android:layout_weight="6"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"/>
-
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:gravity="center"
-		android:layout_weight="2">
+		android:layout_weight="8">
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="00:00"
-			android:id="@+id/T_TextView"
+			android:id="@+id/TR_TextView"
 			android:textSize="48sp"/>
 
 	</LinearLayout>
@@ -37,7 +31,7 @@
 			android:layout_width="0dp"
 			android:layout_weight="1"
 			android:text="@string/start"
-			android:id="@+id/T_bStart"
+			android:id="@+id/TR_bStart"
 			android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 		<Button
@@ -45,7 +39,7 @@
 			android:layout_width="0dp"
 			android:layout_weight="1"
 			android:text="@string/pause"
-			android:id="@+id/T_bPause"
+			android:id="@+id/TR_bPause"
 			android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 	</LinearLayout>
