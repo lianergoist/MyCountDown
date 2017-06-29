@@ -10,12 +10,15 @@ public class RunTimers
  {
 	static final int UPDATE_INTERVAL = 1000;
 	
-	MediaPlayer mp;
+	//MediaPlayer mp;
+	SoundPool sp;
 	CountDownTimer cdt;
 	TextView tv;
 	Integer[] t;
 	int seconds, minutes, numTimer;
 	long milliSecondsRemaining;
+	boolean loaded;
+	int soundId;
 	
 	Context c;
 	
@@ -25,16 +28,24 @@ public class RunTimers
 		tv = textview;
 		t = timers;
 		numTimer = 0;
+		
+		
+		sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+				@Override
+				public void onLoadComplete(SoundPool soundpool, int sampleId, int status) {
+					loaded = true;
+				}
+			});
+		soundId = sp.load(c, R.raw.air, 1);
 	}
 
-	void begin() {
+	void begin () {
 		if (numTimer < t.length) {
 			run(t[numTimer]*1000);
 			cdt.start();
 		} else {
-			tv.setText("done!");
-			mp.release();
-			mp = null;
+			tv.setText("00:00");
 			numTimer = 0;
 		}
 	}
@@ -71,8 +82,10 @@ public class RunTimers
 			}
 
 			public void onFinish() {
-				mp = MediaPlayer.create(c, R.raw.air);
-				mp.start();
+				tv.setText("00:00");
+				if (loaded) {
+					sp.play(soundId, 1f, 1f, 1, 0,1f);
+				}
 				numTimer++;
 				begin();
 				

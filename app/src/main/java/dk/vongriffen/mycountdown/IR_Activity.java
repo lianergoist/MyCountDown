@@ -26,6 +26,8 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 	IR_DBAdapter irdb;
 	
 	Context context;
+	
+	RunTimers rt ;
 
 	IR_CustomAdapter customAdapter;
 	
@@ -50,7 +52,6 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		
-		final RunTimers rt = new RunTimers(context, tv, customAdapter.getTimers());
 		
 		registerForContextMenu(lv);
 
@@ -65,6 +66,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		lv.setAdapter(customAdapter);
 		
+		rt = new RunTimers(context, tv, customAdapter.getTimers());
 		
 		btnStart.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
