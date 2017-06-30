@@ -12,13 +12,9 @@ public class IL_DBAdapter
     static final String KEY_TITLE = "title";
     static final String KEY_DESC = "description";
 
-    static final int COL_ROWID = 0;
-    static final int COL_TITLE = 1;
-    static final int COL_DESC = 2;
-
     static final String TAG = "IL_DBAdapter";
-	static final String DATABASE_NAME = "IL";
-	static final String DATABASE_TABLE = "intervals_list";
+	static final String DATABASE_NAME = "IL1";
+	static final String DATABASE_TABLE = "intervals";
     static final int DATABASE_VERSION = 1;
 
     static final String DATABASE_CREATE =
@@ -29,25 +25,25 @@ public class IL_DBAdapter
 
     final Context context;
 
-    DatabaseHelper IL_DBHelper;
+    DatabaseHelper TL_DBHelper;
     SQLiteDatabase db;
 
     public IL_DBAdapter(Context ctx)
     {
         this.context = ctx;
-        IL_DBHelper = new DatabaseHelper(context);
+        TL_DBHelper = new DatabaseHelper(context);
     }
 
     public IL_DBAdapter open()
     {
-        db = IL_DBHelper.getWritableDatabase();
+        db = TL_DBHelper.getWritableDatabase();
 		return this;
     }
 
     public void close()
     {
 
-        IL_DBHelper.close();
+        TL_DBHelper.close();
     }
 
     public long insertIntervalsList(String title, String desc)

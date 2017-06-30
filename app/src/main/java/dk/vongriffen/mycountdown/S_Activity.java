@@ -1,14 +1,14 @@
 package dk.vongriffen.mycountdown;
 
-import dk.vongriffen.mycountdown.TL_Add_DialogFragment.*;
 import android.app.*;
 import android.content.*;
+import android.content.res.*;
+import android.graphics.*;
 import android.os.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import android.content.res.*;
-import android.graphics.*;
+import dk.vongriffen.mycountdown.TL_Add_DialogFragment.*;
 
 public class S_Activity extends Activity implements TL_AddDialogListener
 {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">00MyCountDown</string>
+    <string name="app_name">MyCountDown</string>
 	<string name="actionbar_add">Add</string>
 	<string name="a_menu_mode">Mode</string>
 	<string name="a_menu_help">Help</string>
