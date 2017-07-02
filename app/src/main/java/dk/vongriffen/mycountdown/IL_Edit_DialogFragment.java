@@ -11,14 +11,18 @@ public class IL_Edit_DialogFragment extends DialogFragment
 	EditText etTitle, etDescription;
 	Button bCancel, bCreate;
 	static String dialogTitle;
+	String title, description;
+	int seconds;
+	long id;
 
 	public interface IL_EditDialogListener {
-		public void onEditDialogMessage(String title, String desc);
-
+		public void IL_onEditDialogMessage(long id, String title, String desc);
 	}
 
-	public IL_Edit_DialogFragment () {
-		//empty
+	public IL_Edit_DialogFragment (long id, String title, String desc) {
+		this.id = id;
+		this.title = title;
+		this.description = desc;
 	}
 
 
@@ -35,7 +39,10 @@ public class IL_Edit_DialogFragment extends DialogFragment
 		setCancelable(false);
 
 		etTitle=(EditText) view.findViewById(R.id.IL_Add_etTitle);
+		etTitle.setText(title);
 		etDescription = (EditText) view.findViewById(R.id.IL_Add_etDescription);
+		etDescription.setText(description);
+		
 		bCreate = (Button) view.findViewById(R.id.IL_Add_bCreate);
 		bCancel = (Button) view.findViewById(R.id.IL_Add_bCancel);
 		bCreate.setText(R.string.update);
@@ -43,7 +50,7 @@ public class IL_Edit_DialogFragment extends DialogFragment
 			@Override
 			public void onClick(View view) {
 				IL_EditDialogListener activity = (IL_EditDialogListener) getActivity();
-				activity.onEditDialogMessage(etTitle.getText().toString(), etDescription.getText().toString());
+				activity.IL_onEditDialogMessage(id, etTitle.getText().toString(), etDescription.getText().toString());
 				dismiss();
 			}
 		});

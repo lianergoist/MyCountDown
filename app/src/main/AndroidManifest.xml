@@ -25,6 +25,14 @@
 			android:label="">
 		</activity>	
 		<activity
+			android:name=".TL_Activity_new"
+			android:label="">
+		</activity>
+		<activity
+			android:name=".TR_Activity_new"
+			android:label="">
+		</activity>	
+		<activity
 			android:name=".IL_Activity"
 			android:label="">
 		</activity>

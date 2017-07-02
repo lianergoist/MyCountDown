@@ -28,6 +28,9 @@ public class TR_Activity extends Activity
 		secs[0] = getIntent().getIntExtra("seconds", 8);
 		
 		context = getBaseContext();
+		
+		setTitle(getResources().getString(R.string.a_menu_mode_timers));
+		
 		tv = (TextView) findViewById(R.id.TR_TextView);
 		btnStart = (Button) findViewById(R.id.TR_bStart);
 		btnPause = (Button) findViewById(R.id.TR_bPause);

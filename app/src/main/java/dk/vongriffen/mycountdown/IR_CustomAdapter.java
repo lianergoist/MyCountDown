@@ -37,7 +37,14 @@ class IR_CustomAdapter extends BaseAdapter
 	Integer[] getTimers() {
 		return mytimers;
 	}
-
+	
+	String getName(int i) {
+		return list.get(i).name;
+	}
+	
+	int getSeconds(int i) {
+		return list.get(i).seconds;
+	}
 	@Override
 	public int getCount()
 	{

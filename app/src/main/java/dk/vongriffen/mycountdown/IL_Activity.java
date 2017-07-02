@@ -9,23 +9,31 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import android.printservice.*;
 
 
 public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_EditDialogListener
 {
-	long id;
+	//long id;
+	
+	Context context;
 	
 	ListView lvTimer;
 	Button bCreateNewTL;
 	
 	IL_DBAdapter ildb;
-	SimpleCursorAdapter myCursor;
+	//SimpleCursorAdapter myCursor;
+	IL_CustomAdapter customAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.il_list);
+		
+		setTitle(getResources().getString(R.string.a_menu_mode_intervals));
+		
+		context = getBaseContext();
 		
 		ildb = new IL_DBAdapter(this);
 		
@@ -46,7 +54,8 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 			}
 		});
 
-		populatelist();
+		customAdapter = new IL_CustomAdapter(context, ildb);
+		lvTimer.setAdapter(customAdapter);
 		
 	}
 
@@ -60,24 +69,37 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 	public boolean onContextItemSelected(MenuItem item)
 	{
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		long id;
 		
 		switch (item.getItemId()){
 			
 			case R.id.c_menu_delete:
-				id = myCursor.getItemId(info.position);
+				id = customAdapter.getItemId(info.position);
+				
+				String table = customAdapter.getTitle(info.position);
+				IR_DBAdapter irdb = new IR_DBAdapter(context);
+				irdb.open();
+				irdb.deleteTable(table);
+				irdb.close();
+				
 				ildb.open();
 				ildb.deleteIntervalsList(id);
 				ildb.close();
-				populatelist();
+				
+				customAdapter = new IL_CustomAdapter(context, ildb);
+				lvTimer.setAdapter(customAdapter);
+				
 				return true;
 				
 			case R.id.c_menu_edit:
+				id = customAdapter.getItemId(info.position);
+				String title = customAdapter.getTitle(info.position);
+				String desc = customAdapter.getDesc(info.position);
 				FragmentManager manager = getFragmentManager();
-				IL_Edit_DialogFragment il_edit_d = new IL_Edit_DialogFragment();
+				IL_Edit_DialogFragment il_edit_d = new IL_Edit_DialogFragment(id, title, desc);
 				String s = getResources().getString(R.string.il_edit_dialog_title);
 				il_edit_d.setDialogTitle(s);
 				il_edit_d.show(manager, "IL_Edit");
-				id = myCursor.getItemId(info.position);
 				return true;
 				
 			default:
@@ -137,22 +159,6 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 			item.setChecked(true);
 		}
 	}
-	
-	public void populatelist () {
-
-		ildb.open();
-
-		Cursor cursor = ildb.getAllIntervalsLists();
-		String[] fromFieldNames = new String[] {IL_DBAdapter.KEY_TITLE, IL_DBAdapter.KEY_DESC};
-		int[] toViewIDs = new int[] {R.id.il_singlerowTitleTextView, R.id.il_singlerowDescTextView};
-		
-		myCursor = new SimpleCursorAdapter(getBaseContext(), R.layout.il_singlerow, cursor, fromFieldNames, toViewIDs, 0);
-		lvTimer= (ListView) findViewById(R.id.IL_ListView);
-		lvTimer.setAdapter(myCursor);
-
-		ildb.close();
-	}
-
 
 	@Override
 	public void onAddDialogMessage(String title, String desc)
@@ -166,7 +172,8 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 		tdb.createTable(title);
 		tdb.close();
 
-		populatelist();
+		customAdapter = new IL_CustomAdapter(context, ildb);
+		lvTimer.setAdapter(customAdapter);
 		
 		Intent intent = new Intent(getApplicationContext(), IR_Activity.class);
 		intent.putExtra("dbTableTitle", title);
@@ -175,13 +182,14 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 
 
 	@Override
-	public void onEditDialogMessage(String title, String desc)
+	public void IL_onEditDialogMessage(long id, String title, String desc)
 	{
 		ildb.open();
 		ildb.updateIntervalsList(id, title, desc);
 		ildb.close();
 
-		populatelist();
+		customAdapter = new IL_CustomAdapter(context, ildb);
+		lvTimer.setAdapter(customAdapter);
 
 	}
 

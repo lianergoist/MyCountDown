@@ -59,9 +59,13 @@ public class IR_DBAdapter
                 + KEY_TIME + " integer);";
 
         db.execSQL(table_create);
-
     }
 
+	public void deleteTable (String table) 
+	{	
+		String table_delete = "drop table if exist " + table + ";";
+        db.execSQL(table_delete);
+	}
     public boolean deleteTimer(String table, long rowId)
     {
         return db.delete(table, KEY_ROWID + "=" + rowId, null) > 0;

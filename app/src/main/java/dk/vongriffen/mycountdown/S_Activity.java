@@ -22,6 +22,8 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.s_layout);
 		
+		setTitle(getResources().getString(R.string.a_menu_mode_simple));
+		
 		Context context = getBaseContext();
 		
 		tv = (TextView) findViewById(R.id.S_TextView);

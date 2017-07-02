@@ -15,7 +15,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 {
 	boolean running = false;
 	boolean pause = false;
-	long id;
+	//long id;
 	
 	ListView lv;
 	TextView tv;
@@ -37,6 +37,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		setContentView(R.layout.ir_layout);
 
 		context = getBaseContext();
+		
 		lv = (ListView) findViewById(R.id.IR_ListView);
 		tv = (TextView) findViewById(R.id.IR_TextView);
 		btnStart = (Button) findViewById(R.id.IR_bStart);
@@ -52,6 +53,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		
+		setTitle(getResources().getString(R.string.a_menu_mode_intervals)+" - "+dbTableTitle);
 		
 		registerForContextMenu(lv);
 
@@ -114,6 +116,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 	public boolean onContextItemSelected(MenuItem item)
 	{
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		long id;
 	
 		switch (item.getItemId()){
 		
@@ -127,12 +130,16 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 				return true;
 
 			case R.id.c_menu_edit:
+				id = customAdapter.getItemId(info.position);
+				String name = customAdapter.getName(info.position);
+				int seconds = customAdapter.getSeconds(info.position);
+				
 				FragmentManager manager = getFragmentManager();
-				IR_Edit_DialogFragment t_edit_d = new IR_Edit_DialogFragment();
+				IR_Edit_DialogFragment t_edit_d = new IR_Edit_DialogFragment(id, name, seconds);
 				String s = getResources().getString(R.string.t_edit_dialog_title);
 				t_edit_d.setDialogTitle(s);
 				t_edit_d.show(manager, "IR_Edit");
-				id = customAdapter.getItemId(info.position);
+				
 				return true;
 
 			default:
@@ -185,7 +192,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		}
 	}
 		
-	public void IR_onEditDialogMessage(String name, int minutes, int seconds)
+	public void IR_onEditDialogMessage(long id, String name, int minutes, int seconds)
 	{
 		irdb.open();
 		int secs = minutes * 60 + seconds;

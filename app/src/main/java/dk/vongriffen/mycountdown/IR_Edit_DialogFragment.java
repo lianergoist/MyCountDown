@@ -15,14 +15,20 @@ public class IR_Edit_DialogFragment extends DialogFragment
 	NumberPicker npMinutes, npSeconds;
 	Button bCancel,bAddtimer;
 	static String dialogTitle;
+	String name;
+	int seconds;
+	long id;
 
 
 	public interface IR_EditDialogListener {
-		public void IR_onEditDialogMessage(String name, int minutes, int seconds);
+		public void IR_onEditDialogMessage(long id, String name, int minutes, int seconds);
 
 	}
 
-	public IR_Edit_DialogFragment () {
+	public IR_Edit_DialogFragment (long id, String name, int seconds) {
+		this.id = id;
+		this.name = name;
+		this.seconds = seconds;
 	}
 
 	public void setDialogTitle(String title) {
@@ -47,18 +53,20 @@ public class IR_Edit_DialogFragment extends DialogFragment
 		npMinutes.setMinValue(MIN_VAL);
 		npMinutes.setMaxValue(MAX_VAL);
 		npMinutes.setWrapSelectorWheel(true);
-		npMinutes.setValue(0);
+		npMinutes.setValue(seconds/60);
 
 		npSeconds.setMinValue(MIN_VAL);
 		npSeconds.setMaxValue(MAX_VAL);
 		npSeconds.setWrapSelectorWheel(true);
-		npSeconds.setValue(0);
+		npSeconds.setValue(seconds%60);
+		
+		etName.setText(name);
 		
 		bAddtimer.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
 					IR_EditDialogListener activity = (IR_EditDialogListener) getActivity();
-					activity.IR_onEditDialogMessage(etName.getText().toString(), npMinutes.getValue(), npSeconds.getValue());
+					activity.IR_onEditDialogMessage(id, etName.getText().toString(), npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});

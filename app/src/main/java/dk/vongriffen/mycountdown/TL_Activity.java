@@ -31,6 +31,8 @@ public class TL_Activity extends Activity implements TL_EditDialogListener, TL_A
 		setContentView(R.layout.tl_list);
 		
 		context = getBaseContext();
+		
+		setTitle(getResources().getString(R.string.a_menu_mode_timers));
 
 		tldb = new TL_DBAdapter(this);
 		
