@@ -75,6 +75,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 					if (running) {
 						running = false;
 						btnStart.setText(R.string.start);
+						btnPause.setText(R.string.pause);
 						rt.stop();
 					}
 					else {
@@ -100,6 +101,8 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 						running = true;
 						pause = false;
 						btnPause.setText(R.string.pause);
+						btnStart.setText(R.string.stop);
+						rt.cont();
 					}
 				}
 			});
@@ -202,6 +205,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
+		rt = new RunTimers(context, tv, customAdapter.getTimers());
 	}
 	
 
@@ -215,6 +219,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		customAdapter = new IR_CustomAdapter(context, irdb, dbTableTitle);
 		lv.setAdapter(customAdapter);
+		rt = new RunTimers(context, tv, customAdapter.getTimers());
 	}
 }
 

@@ -110,7 +110,7 @@ public class IL_DBAdapter
             //   Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
             //           + newVersion + ", which will destroy all old data");
 
-            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE + ";");
             onCreate(db);
         }
     }

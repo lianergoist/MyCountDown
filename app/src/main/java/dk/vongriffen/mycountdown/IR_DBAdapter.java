@@ -53,7 +53,7 @@ public class IR_DBAdapter
 
     public void createTable(String table)
     {
-        String table_create = "create table " + table + " ("
+        String table_create = "create table '" + table + "' ("
                 + KEY_ROWID + " integer primary key autoincrement, "
                 + KEY_NAME + " text not null, "
                 + KEY_TIME + " integer);";
@@ -63,8 +63,12 @@ public class IR_DBAdapter
 
 	public void deleteTable (String table) 
 	{	
-		String table_delete = "drop table if exist " + table + ";";
-        db.execSQL(table_delete);
+		String table_delete = "drop table if exist '" + table + "';";
+		try {
+			db.execSQL(table_delete);
+		} catch (SQLException e) {
+			Log.e(TAG, "Error deleting table: '"+table+"'\n"+e);
+		}
 	}
     public boolean deleteTimer(String table, long rowId)
     {

@@ -24,7 +24,7 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 		
 		setTitle(getResources().getString(R.string.a_menu_mode_simple));
 		
-		Context context = getBaseContext();
+		final Context context = getBaseContext();
 		
 		tv = (TextView) findViewById(R.id.S_TextView);
 		
@@ -44,8 +44,12 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 						running= false;
 					}
 					else {
-						rt.begin();
-						running=true;
+						if (time[0] == 0){
+							Toast.makeText(context, "First long press to set the timer", Toast.LENGTH_LONG).show();
+						} else {
+							rt.begin();
+							running=true;
+						}
 					}
 				}
 
