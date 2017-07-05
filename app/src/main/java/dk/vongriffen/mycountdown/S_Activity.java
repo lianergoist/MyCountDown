@@ -1,6 +1,7 @@
 package dk.vongriffen.mycountdown;
 
-import android.app.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.Toolbar;
 import android.content.*;
 import android.content.res.*;
 import android.graphics.*;
@@ -9,18 +10,23 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.TL_Add_DialogFragment.*;
+import android.support.v4.app.FragmentManager;
 
-public class S_Activity extends Activity implements TL_AddDialogListener
+public class S_Activity extends AppCompatActivity implements TL_AddDialogListener
 {
 	TextView tv;
 	Integer time[]={0};
 	boolean running=false;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.s_layout);
+		
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		
 		setTitle(getResources().getString(R.string.a_menu_mode_simple));
 		
@@ -45,7 +51,7 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 					}
 					else {
 						if (time[0] == 0){
-							Toast.makeText(context, "First long press to set the timer", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, getResources().getString(R.string.longpressToSetTimer), Toast.LENGTH_LONG).show();
 						} else {
 							rt.begin();
 							running=true;
@@ -60,7 +66,7 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 				@Override
 				public boolean onLongClick(View p1)
 				{
-					FragmentManager manager = getFragmentManager();
+					FragmentManager manager = getSupportFragmentManager();
 					TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
 					String s = getResources().getString(R.string.t_add_dialog_title);
 					t_add_d.setDialogTitle(s);
@@ -76,7 +82,7 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.a_menu,menu);
-		menu.findItem(R.id.a_menu_add).setVisible(false);
+		//menu.findItem(R.id.a_menu_add).setVisible(false);
 		menu.findItem(R.id.a_menu_mode_simple).setChecked(true);
 		return true;
 	}
@@ -88,9 +94,9 @@ public class S_Activity extends Activity implements TL_AddDialogListener
 		
 		switch (item.getItemId()) {
 
-			case R.id.a_menu_add:
-				//
-				return true;
+		//	case R.id.a_menu_add:
+		//		//
+		//		return true;
 			case R.id.a_menu_mode_simple:
 				Toast.makeText(this, "@string/alreadyInSimpleMode", Toast.LENGTH_LONG).show();
 				return true;

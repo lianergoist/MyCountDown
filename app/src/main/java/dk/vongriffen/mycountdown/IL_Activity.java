@@ -2,7 +2,6 @@ package dk.vongriffen.mycountdown;
 
 import dk.vongriffen.mycountdown.IL_Add_DialogFragment.IL_Add_DialogListener;
 import dk.vongriffen.mycountdown.IL_Edit_DialogFragment.IL_EditDialogListener;
-import android.app.*;
 import android.content.*;
 import android.database.*;
 import android.os.*;
@@ -10,9 +9,13 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import android.printservice.*;
+import android.support.v7.app.*;
+import android.support.v4.app.*;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.*;
 
 
-public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_EditDialogListener
+public class IL_Activity extends AppCompatActivity implements IL_Add_DialogListener, IL_EditDialogListener
 {
 	//long id;
 	
@@ -30,6 +33,10 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.il_list);
+		
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		
 		
 		setTitle(getResources().getString(R.string.a_menu_mode_intervals));
 		
@@ -54,8 +61,21 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 			}
 		});
 
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					FragmentManager manager = getSupportFragmentManager();
+					IL_Add_DialogFragment il_add_d = new IL_Add_DialogFragment();
+					String s = getResources().getString(R.string.il_add_dialog_title);
+					il_add_d.setDialogTitle(s);
+					il_add_d.show(manager, "IL_Add");
+				}
+		});
+			
 		customAdapter = new IL_CustomAdapter(context, ildb);
 		lvTimer.setAdapter(customAdapter);
+		
 		
 	}
 
@@ -95,7 +115,7 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 				id = customAdapter.getItemId(info.position);
 				String title = customAdapter.getTitle(info.position);
 				String desc = customAdapter.getDesc(info.position);
-				FragmentManager manager = getFragmentManager();
+				FragmentManager manager = getSupportFragmentManager();
 				IL_Edit_DialogFragment il_edit_d = new IL_Edit_DialogFragment(id, title, desc);
 				String s = getResources().getString(R.string.il_edit_dialog_title);
 				il_edit_d.setDialogTitle(s);
@@ -121,13 +141,13 @@ public class IL_Activity extends Activity implements IL_Add_DialogListener, IL_E
 		Intent intent;
 		
 		switch (item.getItemId()) {
-			case R.id.a_menu_add:
-				FragmentManager manager = getFragmentManager();
-				IL_Add_DialogFragment il_add_d = new IL_Add_DialogFragment();
-				String s = getResources().getString(R.string.il_add_dialog_title);
-				il_add_d.setDialogTitle(s);
-				il_add_d.show(manager, "IL_Add");
-				return true;
+//			case R.id.a_menu_add:
+//				FragmentManager manager = getSupportFragmentManager();
+//				IL_Add_DialogFragment il_add_d = new IL_Add_DialogFragment();
+//				String s = getResources().getString(R.string.il_add_dialog_title);
+//				il_add_d.setDialogTitle(s);
+//				il_add_d.show(manager, "IL_Add");
+//				return true; 
 				
 			case R.id.a_menu_mode_simple:
 				intent = new Intent(getApplicationContext(), S_Activity.class);

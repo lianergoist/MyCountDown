@@ -1,14 +1,15 @@
 package dk.vongriffen.mycountdown;
 
-import android.app.*;
 import android.content.*;
 import android.content.res.*;
 import android.graphics.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.Toolbar;
 
-public class TR_Activity extends Activity
+public class TR_Activity extends AppCompatActivity
 {
 	boolean running = false;
 	boolean pause = false;
@@ -25,6 +26,12 @@ public class TR_Activity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tr_layout);
 
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		
+		ActionBar ab = getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		
 		secs[0] = getIntent().getIntExtra("seconds", 8);
 		
 		context = getBaseContext();
@@ -82,7 +89,7 @@ public class TR_Activity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.a_menu,menu);
-		menu.findItem(R.id.a_menu_add).setVisible(false);
+		//menu.findItem(R.id.a_menu_add).setVisible(false);
 		menu.findItem(R.id.a_menu_mode_timers).setChecked(true);
 		return true;
 	}

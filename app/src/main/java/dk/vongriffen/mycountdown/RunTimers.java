@@ -44,9 +44,14 @@ public class RunTimers
 		if (numTimer < t.length) {
 			run(t[numTimer]*1000);
 			cdt.start();
-		} else {
-			tv.setText("00:00");
+		} else if (t.length == 1) {
+			minutes = (int) t[0] / 60;
+			seconds = (int) t[0] % 60 ;
+			tv.setText(String.format("%02d:%02d", minutes, seconds));
 			numTimer = 0;
+		} else {
+			numTimer = 0;
+			tv.setText("00:00");
 		}
 	}
 

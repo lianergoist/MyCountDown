@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical">
+
+	<include
+		layout="@layout/app_bar"
+		android:id="@+id/appbar"/>
 
 	<TextView
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:text="00:00"
 		android:id="@+id/S_TextView"
-		android:textSize="144sp"
-		android:gravity="center"/>
+		android:textSize="136sp"
+		android:gravity="center"
+		android:padding="10dp"
+		android:layout_below="@id/appbar"/>
 
-</LinearLayout>
+</RelativeLayout>
 

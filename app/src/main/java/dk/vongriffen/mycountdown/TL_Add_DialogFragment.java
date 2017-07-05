@@ -1,10 +1,11 @@
 package dk.vongriffen.mycountdown;
 
-import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.*;
+import android.support.v4.app.*;
+
 
 public class TL_Add_DialogFragment extends DialogFragment
 {

@@ -2,16 +2,19 @@ package dk.vongriffen.mycountdown;
 
 import dk.vongriffen.mycountdown.TL_Add_DialogFragment.TL_AddDialogListener;
 import dk.vongriffen.mycountdown.TL_Edit_DialogFragment.TL_EditDialogListener;
-import android.app.*;
 import android.content.*;
 import android.database.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.Toolbar;
+import android.support.v4.app.*;
+import android.support.design.widget.*;
 
 
-public class TL_Activity extends Activity implements TL_EditDialogListener, TL_AddDialogListener
+public class TL_Activity extends AppCompatActivity implements TL_EditDialogListener, TL_AddDialogListener
 {
 	long id;
 	
@@ -29,6 +32,9 @@ public class TL_Activity extends Activity implements TL_EditDialogListener, TL_A
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tl_list);
+		
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		
 		context = getBaseContext();
 		
@@ -65,6 +71,18 @@ public class TL_Activity extends Activity implements TL_EditDialogListener, TL_A
 					startActivity(intent);
 				}
 			});
+			
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = getSupportFragmentManager();
+				TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
+				String s = getResources().getString(R.string.t_add_dialog_title);
+				t_add_d.setDialogTitle(s);
+				t_add_d.show(manager, "TL_Add");
+            }
+        });
 	}
 
 	@Override
@@ -92,7 +110,7 @@ public class TL_Activity extends Activity implements TL_EditDialogListener, TL_A
 				return true;
 
 			case R.id.c_menu_edit:
-				FragmentManager manager = getFragmentManager();
+				FragmentManager manager = getSupportFragmentManager();
 				TL_Edit_DialogFragment tl_edit_d = new TL_Edit_DialogFragment();
 				String s = getResources().getString(R.string.t_edit_dialog_title);
 				tl_edit_d.setDialogTitle(s);
@@ -119,13 +137,13 @@ public class TL_Activity extends Activity implements TL_EditDialogListener, TL_A
 		Intent intent;
 
 		switch (item.getItemId()) {
-			case R.id.a_menu_add:
-				FragmentManager manager = getFragmentManager();
-				TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
-				String s = getResources().getString(R.string.t_add_dialog_title);
-				t_add_d.setDialogTitle(s);
-				t_add_d.show(manager, "TL_Add");
-				return true;
+//			case R.id.a_menu_add:
+//				FragmentManager manager = getSupportFragmentManager();
+//				TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
+//				String s = getResources().getString(R.string.t_add_dialog_title);
+//				t_add_d.setDialogTitle(s);
+//				t_add_d.show(manager, "TL_Add");
+//				return true;
 
 			case R.id.a_menu_mode_simple:
 				intent = new Intent(getApplicationContext(), S_Activity.class);

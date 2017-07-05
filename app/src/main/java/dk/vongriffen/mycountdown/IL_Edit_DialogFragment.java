@@ -1,10 +1,10 @@
 package dk.vongriffen.mycountdown;
 
-import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+import android.support.v4.app.*;
 
 public class IL_Edit_DialogFragment extends DialogFragment
 {

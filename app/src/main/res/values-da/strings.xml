@@ -26,5 +26,5 @@
 	<string name="alreadyInSimpleMode">Du er allerede i Simpel mode!</string>
 	<string name="alreadyInTimersMode">Du er allerede i Timers mode!</string>
 	<string name="alreadyInIntervalsMode">Du er allerede i Interval mode!</string>
-
+	<string name="longpressToSetTimer">Tryk længe for at sætte timer</string>
 </resources>

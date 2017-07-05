@@ -1,6 +1,5 @@
 package dk.vongriffen.mycountdown;
 
-import android.app.*;
 import android.content.*;
 import android.content.res.*;
 import android.graphics.*;
@@ -10,8 +9,12 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import dk.vongriffen.mycountdown.IR_Add_DialogFragment.*;
 import dk.vongriffen.mycountdown.IR_Edit_DialogFragment.*;
+import android.support.v7.app.*;
+import android.support.v4.app.*;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.*;
 
-public class IR_Activity extends Activity implements IR_EditDialogListener, IR_AddDialogListener
+public class IR_Activity extends AppCompatActivity implements IR_EditDialogListener, IR_AddDialogListener
 {
 	boolean running = false;
 	boolean pause = false;
@@ -35,7 +38,13 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ir_layout);
-
+		
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		
+		ActionBar ab = getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		
 		context = getBaseContext();
 		
 		lv = (ListView) findViewById(R.id.IR_ListView);
@@ -62,7 +71,7 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				//Toast.makeText(getApplicationContext(), ""+pos, Toast.LENGTH_LONG).show(); 
+			
 			}
 		});
 		
@@ -106,6 +115,19 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 					}
 				}
 			});
+			
+			
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					FragmentManager manager = getSupportFragmentManager();
+				IR_Add_DialogFragment t_add_d = new IR_Add_DialogFragment();
+				String s = getResources().getString(R.string.ir_add_dialog_title);
+				t_add_d.setDialogTitle(s);
+				t_add_d.show(manager, "IR_Add");
+				}
+			});
 	}
 	
 	
@@ -137,12 +159,11 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 				String name = customAdapter.getName(info.position);
 				int seconds = customAdapter.getSeconds(info.position);
 				
-				FragmentManager manager = getFragmentManager();
-				IR_Edit_DialogFragment t_edit_d = new IR_Edit_DialogFragment(id, name, seconds);
+				FragmentManager manager = getSupportFragmentManager();
+				IR_Edit_DialogFragment ir_edit_d = new IR_Edit_DialogFragment(id, name, seconds);
 				String s = getResources().getString(R.string.t_edit_dialog_title);
-				t_edit_d.setDialogTitle(s);
-				t_edit_d.show(manager, "IR_Edit");
-				
+				ir_edit_d.setDialogTitle(s);
+				ir_edit_d.show(manager, "IR_Edit");
 				return true;
 
 			default:
@@ -166,13 +187,13 @@ public class IR_Activity extends Activity implements IR_EditDialogListener, IR_A
 		
 		switch (item.getItemId()) {
 
-			case R.id.a_menu_add:
-				FragmentManager manager = getFragmentManager();
-				IR_Add_DialogFragment t_add_d = new IR_Add_DialogFragment();
-				String s = getResources().getString(R.string.ir_add_dialog_title);
-				t_add_d.setDialogTitle(s);
-				t_add_d.show(manager, "T_Add");
-				return true;
+//			case R.id.a_menu_add:
+//				FragmentManager manager = getSupportFragmentManager();
+//				IR_Add_DialogFragment ir_add_d = new IR_Add_DialogFragment();
+//				String s = getResources().getString(R.string.ir_add_dialog_title);
+//				ir_add_d.setDialogTitle(s);
+//				ir_add_d.show(manager, "IR_Add");
+//				return true;
 				
 			case R.id.a_menu_mode_simple:
 				intent = new Intent(getApplicationContext(), S_Activity.class);
