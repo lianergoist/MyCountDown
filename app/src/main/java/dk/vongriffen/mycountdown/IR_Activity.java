@@ -37,7 +37,7 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ir_layout);
+		setContentView(R.layout.activity_ir);
 		
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

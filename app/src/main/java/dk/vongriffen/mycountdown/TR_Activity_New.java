@@ -9,7 +9,7 @@ import android.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
 
-public class TR_Activity extends AppCompatActivity
+public class TR_Activity_New extends AppCompatActivity
 {
 	boolean running = false;
 	boolean pause = false;
@@ -28,16 +28,16 @@ public class TR_Activity extends AppCompatActivity
 
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		
+
 		ActionBar ab = getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		
+
 		secs[0] = getIntent().getIntExtra("seconds", 8);
-		
+
 		context = getBaseContext();
-		
+
 		setTitle(getResources().getString(R.string.a_menu_mode_timers));
-		
+
 		tv = (TextView) findViewById(R.id.TR_TextView);
 		btnStart = (Button) findViewById(R.id.TR_bStart);
 		btnPause = (Button) findViewById(R.id.TR_bPause);
@@ -45,9 +45,9 @@ public class TR_Activity extends AppCompatActivity
 		AssetManager assetmanager = getAssets();
 		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
 		tv.setTypeface(customfont);
-		
+
 		tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
-		
+
 		final RunTimers rt = new RunTimers(context, tv, secs);
 
 		btnStart.setOnClickListener(new View.OnClickListener() {

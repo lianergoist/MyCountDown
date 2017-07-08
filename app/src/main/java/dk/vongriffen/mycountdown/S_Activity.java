@@ -23,7 +23,7 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.s_layout);
+		setContentView(R.layout.activity_s);
 		
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

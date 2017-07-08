@@ -14,17 +14,17 @@ import android.support.v4.app.*;
 import android.support.design.widget.*;
 
 
-public class TL_Activity extends AppCompatActivity implements TL_EditDialogListener, TL_AddDialogListener
+public class TL_Activity_New extends AppCompatActivity implements TL_EditDialogListener, TL_AddDialogListener
 {
 	long id;
-	
+
 	Context context;
 
 	ListView lvTimer;
 	Button bCreateNewTL;
 
 	TL_DBAdapter tldb;
-	
+
 	TL_CustomAdapter adapter;
 
 	@Override
@@ -32,20 +32,20 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tl);
-		
+
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		
+
 		context = getBaseContext();
-		
+
 		setTitle(getResources().getString(R.string.a_menu_mode_timers));
 
 		tldb = new TL_DBAdapter(this);
-		
+
 		adapter = new TL_CustomAdapter(context, tldb);
 
 		lvTimer = (ListView) findViewById(R.id.TL_ListView);
-		
+
 		lvTimer.setAdapter(adapter);
 
 		registerForContextMenu(lvTimer);
@@ -61,7 +61,7 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 				}
 			});
 
-		
+
 		lvTimer.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -71,18 +71,18 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 					startActivity(intent);
 				}
 			});
-			
+
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager manager = getSupportFragmentManager();
-				TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
-				String s = getResources().getString(R.string.t_add_dialog_title);
-				t_add_d.setDialogTitle(s);
-				t_add_d.show(manager, "TL_Add");
-            }
-        });
+				@Override
+				public void onClick(View view) {
+					FragmentManager manager = getSupportFragmentManager();
+					TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
+					String s = getResources().getString(R.string.t_add_dialog_title);
+					t_add_d.setDialogTitle(s);
+					t_add_d.show(manager, "TL_Add");
+				}
+			});
 	}
 
 	@Override
@@ -103,10 +103,10 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 				tldb.open();
 				tldb.deleteTimer(id);
 				tldb.close();
-				
+
 				adapter = new TL_CustomAdapter(context, tldb);
 				lvTimer.setAdapter(adapter);
-				
+
 				return true;
 
 			case R.id.c_menu_edit:
@@ -179,11 +179,11 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 	@Override
 	public void TL_onAddDialogMessage(int minutes, int seconds)
 	{
-		
+
 		tldb.open();
 		tldb.insertTimer(minutes*60+seconds);
 		tldb.close();
-		
+
 		adapter = new TL_CustomAdapter(context, tldb);
 		lvTimer.setAdapter(adapter);
 	}

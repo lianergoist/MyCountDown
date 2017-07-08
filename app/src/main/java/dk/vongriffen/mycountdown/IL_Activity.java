@@ -32,7 +32,7 @@ public class IL_Activity extends AppCompatActivity implements IL_Add_DialogListe
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.il_list);
+		setContentView(R.layout.activity_il);
 		
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

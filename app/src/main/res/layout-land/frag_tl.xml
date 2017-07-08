@@ -8,8 +8,15 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:name="dk.vongriffen.myfragment.TL_Fragment"
-		android:id="@+id/tl_frag_list">
+		android:id="@+id/tl_frag">
 		
+	</fragment>
+	<fragment
+		android:layout_weight="1"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:name="dk.vongriffen.mycountdown.TR_Fragment"
+		android:id="@+id/tl_frag">
 	</fragment>
 		
 </LinearLayout>

@@ -2,21 +2,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal">
-    
+
 	<fragment
 		android:layout_weight="1"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:name="dk.vongriffen.myfragment.TL_Fragment"
-		android:id="@+id/tl_frag_list">
-		
+		android:name="dk.vongriffen.myfragment.IL_Fragment"
+		android:id="@+id/il_frag">
+
 	</fragment>
 	<fragment
 		android:layout_weight="1"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:name="dk.vongriffen.mycountdown.TR_Fragment"
-		android:id="@+id/tl_frag_layout">
+		android:name="dk.vongriffen.mycountdown.IR_Fragment"
+		android:id="@+id/ir_frag">
 	</fragment>
-		
+
 </LinearLayout>
