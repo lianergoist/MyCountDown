@@ -7,13 +7,13 @@
 	<include
 		layout="@layout/app_bar"
 		android:id="@+id/appbar"/>
-	
+
 	<ListView
 		android:layout_marginTop="16dp"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/TL_ListView"/>
-	
+
 	<android.support.design.widget.FloatingActionButton
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,6 +24,6 @@
         app:srcCompat="@drawable/ic_add_white_24dp" 
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"/>
-
+	
 	</RelativeLayout>
 

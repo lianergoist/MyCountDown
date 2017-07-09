@@ -17,7 +17,7 @@ public class TL_Edit_DialogFragment extends DialogFragment
 
 
 	public interface TL_EditDialogListener {
-		public void TL_onEditDialogMessage(int minutes, int seconds);
+		public void TL_onEditDialogMessage(long id, int minutes, int seconds);
 
 	}
 
@@ -56,7 +56,7 @@ public class TL_Edit_DialogFragment extends DialogFragment
 				@Override
 				public void onClick(View view) {
 					TL_EditDialogListener activity = (TL_EditDialogListener) getActivity();
-					activity.TL_onEditDialogMessage(npMinutes.getValue(), npSeconds.getValue());
+					activity.TL_onEditDialogMessage(0L, npMinutes.getValue(), npSeconds.getValue());
 					dismiss();
 				}
 			});

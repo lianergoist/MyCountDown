@@ -16,7 +16,7 @@ import android.support.design.widget.*;
 
 public class TL_Activity extends AppCompatActivity implements TL_EditDialogListener, TL_AddDialogListener
 {
-	long id;
+	//long id;
 	
 	Context context;
 
@@ -95,7 +95,8 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 	public boolean onContextItemSelected(MenuItem item)
 	{
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-
+		long id;
+		
 		switch (item.getItemId()){
 
 			case R.id.c_menu_delete:
@@ -190,7 +191,7 @@ public class TL_Activity extends AppCompatActivity implements TL_EditDialogListe
 
 
 	@Override
-	public void TL_onEditDialogMessage(int minutes, int seconds)
+	public void TL_onEditDialogMessage(long id, int minutes, int seconds)
 	{
 		tldb.open();
 		int secs = minutes * 60 + seconds;
