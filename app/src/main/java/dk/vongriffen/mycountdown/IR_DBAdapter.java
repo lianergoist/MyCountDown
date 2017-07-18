@@ -48,7 +48,7 @@ public class IR_DBAdapter
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_TIME, secs);
-        return db.insert(table, null, initialValues);
+        return db.insert("'"+table+"'", null, initialValues);
     }
 
     public void createTable(String table)
@@ -58,7 +58,14 @@ public class IR_DBAdapter
                 + KEY_NAME + " text not null, "
                 + KEY_TIME + " integer);";
 
-        db.execSQL(table_create);
+        try
+		{
+			db.execSQL(table_create);
+		}
+		catch (SQLException e)
+		{
+			Log.e(TAG, "Error creating table: '"+table+"'\n"+e);
+		}
     }
 
 	public void deleteTable (String table) 
@@ -72,18 +79,18 @@ public class IR_DBAdapter
 	}
     public boolean deleteTimer(String table, long rowId)
     {
-        return db.delete(table, KEY_ROWID + "=" + rowId, null) > 0;
+        return db.delete("'"+table+"'", KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     public Cursor getAllTimers(String table)
     {
-        return db.query(table, new String[] {KEY_ROWID, KEY_NAME,
+        return db.query("'"+table+"'", new String[] {KEY_ROWID, KEY_NAME,
                 KEY_TIME}, null, null, null, null, null);
     }
 
     public Cursor getTimer(String table, long rowId)
     {
-        Cursor c = db.query(true, table, new String[] {KEY_ROWID,
+        Cursor c = db.query(true, "'"+table+"'", new String[] {KEY_ROWID,
                         KEY_NAME, KEY_TIME}, KEY_ROWID + "=" + rowId,
                 null, null, null, null, null);
         if (c != null) {
@@ -97,7 +104,7 @@ public class IR_DBAdapter
         ContentValues args = new ContentValues();
         args.put(KEY_NAME, name);
         args.put(KEY_TIME, secs);
-        return db.update(table, args, KEY_ROWID + "=" + rowId, null) > 0;
+        return db.update("'"+table+"'", args, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
 
@@ -124,6 +131,7 @@ public class IR_DBAdapter
 			//TODO Handle upgrade
 			
 		}
+		
     }
 }
 

@@ -91,8 +91,15 @@ public class TL_DBAdapter
 				+ KEY_ROWID + " integer primary key autoincrement, "
 				+ KEY_TIME + " integer);";
 
-			db.execSQL(table_create);
-			Log.i(TAG, DATABASE_NAME + " created successfully");
+			try
+			{
+				db.execSQL(table_create);
+				Log.i(TAG, DATABASE_NAME + " created successfully");
+			}
+			catch (SQLException e)
+			{
+				Log.e(TAG, "Error creating table: "+DATABASE_TABLE+"\n"+e);
+			}
         }
 
         @Override
