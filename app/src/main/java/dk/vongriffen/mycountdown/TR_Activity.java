@@ -115,7 +115,7 @@ public class TR_Activity extends AppCompatActivity
 				return true;
 
 			case R.id.a_menu_mode_timers:
-				Toast.makeText(this, "@string/alreadyInTimersMode", Toast.LENGTH_LONG).show();
+				Toast.makeText(this,getResources().getString(R.string.alreadyInTimersMode), Toast.LENGTH_LONG).show();
 				return true;
 
 			case R.id.a_menu_mode_intervals:

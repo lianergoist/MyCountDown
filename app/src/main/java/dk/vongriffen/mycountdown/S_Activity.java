@@ -98,7 +98,7 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 		//		//
 		//		return true;
 			case R.id.a_menu_mode_simple:
-				Toast.makeText(this, "@string/alreadyInSimpleMode", Toast.LENGTH_LONG).show();
+				Toast.makeText(this,getResources().getString(R.string.alreadyInSimpleMode), Toast.LENGTH_LONG).show();
 				return true;
 				
 			case R.id.a_menu_mode_timers:

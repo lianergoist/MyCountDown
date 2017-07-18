@@ -206,9 +206,7 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 				return true;
 
 			case R.id.a_menu_mode_intervals:
-				item.setChecked(true);
-				intent = new Intent(getApplicationContext(), IL_Activity.class);
-				startActivity(intent);
+				Toast.makeText(this, getResources().getString(R.string.alreadyInIntervalsMode), Toast.LENGTH_LONG).show();
 				return true;
 				
 			default:

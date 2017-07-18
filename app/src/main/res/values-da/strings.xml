@@ -5,9 +5,9 @@
 	<string name="actionbar_add">Tilføj</string>
 	<string name="a_menu_mode">Tilstand</string>
 	<string name="a_menu_help">Hjælp</string>
-	<string name="a_menu_mode_simple">Simpel</string>
-	<string name="a_menu_mode_timers">Timer</string>
-	<string name="a_menu_mode_intervals">Interval</string>
+	<string name="a_menu_mode_simple">Simpel mode</string>
+	<string name="a_menu_mode_timers">Timer mode</string>
+	<string name="a_menu_mode_intervals">Interval mode</string>
     <string name="start">Start</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stop</string>
@@ -24,7 +24,7 @@
 	<string name="t_edit_dialog_title">Rediger timer</string>
 	<string name="t_add_dialog_title">Tilføj timer</string>
 	<string name="alreadyInSimpleMode">Du er allerede i Simpel mode!</string>
-	<string name="alreadyInTimersMode">Du er allerede i Timers mode!</string>
+	<string name="alreadyInTimersMode">Du er allerede i Timer mode!</string>
 	<string name="alreadyInIntervalsMode">Du er allerede i Interval mode!</string>
 	<string name="longpressToSetTimer">Tryk længe for at sætte timer</string>
 </resources>

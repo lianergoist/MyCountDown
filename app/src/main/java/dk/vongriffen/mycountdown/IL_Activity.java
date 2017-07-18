@@ -160,7 +160,7 @@ public class IL_Activity extends AppCompatActivity implements IL_Add_DialogListe
 				return true;
 				
 			case R.id.a_menu_mode_intervals:
-				Toast.makeText(this, "@string/alreadyInIntervalsMode", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, getResources().getString(R.string.alreadyInIntervalsMode), Toast.LENGTH_LONG).show();
 				return true;
 				
 			case R.id.a_menu_help:

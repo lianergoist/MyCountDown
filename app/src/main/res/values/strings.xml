@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">MyCountDown</string>
 	<string name="actionbar_add">Add</string>
 	<string name="a_menu_mode">Mode</string>
 	<string name="a_menu_help">Help</string>
-	<string name="a_menu_mode_simple">Simple</string>
-	<string name="a_menu_mode_timers">Timers</string>
-	<string name="a_menu_mode_intervals">Intervals</string>
+	<string name="a_menu_mode_simple">Simple mode</string>
+	<string name="a_menu_mode_timers">Timers mode</string>
+	<string name="a_menu_mode_intervals">Intervals mode</string>
     <string name="start">Start</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stop</string>
