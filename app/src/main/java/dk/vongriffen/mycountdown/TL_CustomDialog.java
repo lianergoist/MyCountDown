@@ -32,6 +32,10 @@ class TL_CustomAdapter extends BaseAdapter
 		}
 		db.close();
 	}
+	
+	void setBackground(int id, long color) {
+		
+	}
 
 	int[] getTimers() {
 		return mytimers;

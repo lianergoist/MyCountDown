@@ -25,6 +25,8 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 	Button btnStart, btnPause;
 	
 	String dbTableTitle;
+	
+	Integer[] secs = {10};
 
 	IR_DBAdapter irdb;
 	
@@ -78,44 +80,43 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 		lv.setAdapter(customAdapter);
 		
 		rt = new RunTimers(context, tv, customAdapter.getTimers());
+		secs = customAdapter.getTimers();
 		
-		btnStart.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
+		tv.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View view)
+				{
 					if (running) {
-						running = false;
-						btnStart.setText(R.string.start);
-						btnPause.setText(R.string.pause);
-						rt.stop();
+						if (pause) {
+							rt.cont();
+							pause=false;
+							running=true;
+						}
+						else {
+							rt.pause();
+							pause=true;
+						}
 					}
 					else {
-						//start
-						running = true;
-						btnStart.setText(R.string.stop);
 						rt.begin();
+						running=true;
 					}
 				}
 			});
 
-		btnPause.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
-					if (running) {
-						//pause
-						running = false;
-						pause = true;
-						btnPause.setText(R.string.cont);
-						rt.pause();	
-					}
-					else {
-						// continue
-						running = true;
-						pause = false;
-						btnPause.setText(R.string.pause);
-						btnStart.setText(R.string.stop);
-						rt.cont();
-					}
+		tv.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View p1)
+				{
+					rt.stop();
+					tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
+					running=false;
+					pause=false;
+					return true;
 				}
-			});
-			
+			});	
 			
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

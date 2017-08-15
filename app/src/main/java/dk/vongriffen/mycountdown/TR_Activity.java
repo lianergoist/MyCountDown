@@ -8,6 +8,7 @@ import android.view.*;
 import android.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
+import android.view.View.*;
 
 public class TR_Activity extends AppCompatActivity
 {
@@ -50,37 +51,39 @@ public class TR_Activity extends AppCompatActivity
 		
 		final RunTimers rt = new RunTimers(context, tv, secs);
 
-		btnStart.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
+		tv.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View view)
+				{
 					if (running) {
-						running = false;
-						btnStart.setText(R.string.start);
-						rt.stop();
+						if (pause) {
+							rt.cont();
+							pause=false;
+							running=true;
+						}
+						else {
+							rt.pause();
+							pause=true;
+						}
 					}
 					else {
-						//start
-						running = true;
-						btnStart.setText(R.string.stop);
 						rt.begin();
+						running=true;
 					}
 				}
 			});
 
-		btnPause.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
-					if (running) {
-						//pause
-						running = false;
-						pause = true;
-						btnPause.setText(R.string.cont);
-						rt.pause();	
-					}
-					else {
-						// continue
-						running = true;
-						pause = false;
-						btnPause.setText(R.string.pause);
-					}
+		tv.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View p1)
+				{
+					rt.stop();
+					tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
+					running=false;
+					pause=false;
+					return true;
 				}
 			});
 	}
