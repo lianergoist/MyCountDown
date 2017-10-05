@@ -14,6 +14,8 @@ import android.support.v4.app.*;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.*;
 import android.os.PowerManager.*;
+import android.view.View.*;
+
 
 public class IR_Activity extends AppCompatActivity implements IR_EditDialogListener, IR_AddDialogListener
 {
