@@ -9,6 +9,7 @@ import android.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
 import android.view.View.*;
+import android.os.PowerManager.*;
 
 public class TR_Activity extends AppCompatActivity
 {
@@ -21,6 +22,8 @@ public class TR_Activity extends AppCompatActivity
 	Integer[] secs = {10};
 
 	Context context;
+	
+	WakeLock wakeLock;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class TR_Activity extends AppCompatActivity
 		tv = (TextView) findViewById(R.id.TR_TextView);
 		btnStart = (Button) findViewById(R.id.TR_bStart);
 		btnPause = (Button) findViewById(R.id.TR_bPause);
+		
+		PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyWakelockTag");
 
 		AssetManager assetmanager = getAssets();
 		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
@@ -52,22 +58,26 @@ public class TR_Activity extends AppCompatActivity
 		final RunTimers rt = new RunTimers(context, tv, secs);
 
 		tv.setOnClickListener(new OnClickListener() {
-
+			
+				
 				@Override
 				public void onClick(View view)
 				{
 					if (running) {
 						if (pause) {
+							wakeLock.acquire();
 							rt.cont();
 							pause=false;
 							running=true;
 						}
 						else {
+							wakeLock.release();
 							rt.pause();
 							pause=true;
 						}
 					}
 					else {
+						wakeLock.acquire();
 						rt.begin();
 						running=true;
 					}
@@ -79,6 +89,7 @@ public class TR_Activity extends AppCompatActivity
 				@Override
 				public boolean onLongClick(View p1)
 				{
+					wakeLock.release();
 					rt.stop();
 					tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
 					running=false;

@@ -13,6 +13,7 @@ import android.support.v7.app.*;
 import android.support.v4.app.*;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.*;
+import android.os.PowerManager.*;
 
 public class IR_Activity extends AppCompatActivity implements IR_EditDialogListener, IR_AddDialogListener
 {
@@ -36,6 +37,8 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 
 	IR_CustomAdapter customAdapter;
 	
+	WakeLock wakeLock;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,6 +60,10 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 		AssetManager assetmanager = getAssets();
 		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
 		tv.setTypeface(customfont);
+		
+		PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyWakelockTag");
+		
 		
 		dbTableTitle = getIntent().getStringExtra("dbTableTitle");
 
@@ -84,21 +91,25 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 		
 		tv.setOnClickListener(new OnClickListener() {
 
+				
 				@Override
 				public void onClick(View view)
 				{
 					if (running) {
 						if (pause) {
+							wakeLock.acquire();
 							rt.cont();
 							pause=false;
 							running=true;
 						}
 						else {
+							wakeLock.release();
 							rt.pause();
 							pause=true;
 						}
 					}
 					else {
+						wakeLock.acquire();
 						rt.begin();
 						running=true;
 					}
@@ -110,6 +121,7 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 				@Override
 				public boolean onLongClick(View p1)
 				{
+					wakeLock.release();
 					rt.stop();
 					tv.setText(String.format("%02d:%02d", secs[0]/60, secs[0]%60));
 					running=false;
