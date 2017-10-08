@@ -62,7 +62,7 @@ public class IR_Activity extends AppCompatActivity implements IR_EditDialogListe
 		tv.setTypeface(customfont);
 		
 		PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyWakelockTag");
+		wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,"MyWakelockTag");
 		
 		
 		dbTableTitle = getIntent().getStringExtra("dbTableTitle");

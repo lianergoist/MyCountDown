@@ -47,7 +47,7 @@ public class TR_Activity extends AppCompatActivity
 		btnPause = (Button) findViewById(R.id.TR_bPause);
 		
 		PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyWakelockTag");
+		wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,"MyWakelockTag");
 
 		AssetManager assetmanager = getAssets();
 		Typeface customfont = Typeface.createFromAsset(assetmanager, "fonts/digital-7-mono.ttf");
