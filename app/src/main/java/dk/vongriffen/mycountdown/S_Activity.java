@@ -11,12 +11,15 @@ import android.view.View.*;
 import android.widget.*;
 import dk.vongriffen.mycountdown.TL_Add_DialogFragment.*;
 import android.support.v4.app.FragmentManager;
+import android.os.PowerManager.*;
 
 public class S_Activity extends AppCompatActivity implements TL_AddDialogListener
 {
 	TextView tv;
 	Integer time[]={0};
-	boolean running=false;
+	boolean running=false, pause=false;
+	
+	WakeLock wakeLock;
 	
 	
 	@Override
@@ -32,6 +35,9 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 		
 		final Context context = getBaseContext();
 		
+		PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+		wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,"MyWakelockTag");
+		
 		tv = (TextView) findViewById(R.id.S_TextView);
 		
 		AssetManager assetmanager = getAssets();
@@ -46,13 +52,23 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 				public void onClick(View view)
 				{
 					if (running) {
-						rt.pause();
-						running= false;
+						if (pause) {
+							wakeLock.acquire();
+							rt.cont();
+							pause = false;
+							running = true;
+						}
+						else {
+							wakeLock.release();
+							rt.pause();
+							pause = true;
+						}
 					}
 					else {
 						if (time[0] == 0){
 							Toast.makeText(context, getResources().getString(R.string.longpressToSetTimer), Toast.LENGTH_LONG).show();
 						} else {
+							wakeLock.acquire();
 							rt.begin();
 							running=true;
 						}
@@ -66,6 +82,10 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 				@Override
 				public boolean onLongClick(View p1)
 				{
+					wakeLock.release();
+					running=false;
+					pause=false;
+					
 					FragmentManager manager = getSupportFragmentManager();
 					TL_Add_DialogFragment t_add_d = new TL_Add_DialogFragment();
 					String s = getResources().getString(R.string.t_add_dialog_title);
