@@ -82,7 +82,7 @@ public class S_Activity extends AppCompatActivity implements TL_AddDialogListene
 				@Override
 				public boolean onLongClick(View p1)
 				{
-					wakeLock.release();
+					//wakeLock.release();
 					running=false;
 					pause=false;
 					
